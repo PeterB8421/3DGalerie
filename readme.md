@@ -43,6 +43,7 @@ Začátek s knihovnou three.js, importování souborů OBJ a MTL, pochopení zá
 <li>14.9.2019 – Three.js začátek vývoje
 Vytvoření statické stránky pro vykreslování 3 D objektů, kterou poté bude nutno převést do dynamické verze s použitím načtení objektů z databáze. 
 Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-using-threejs <br><i>Čas: <b>2 hodiny</b></i></li>
+<li>16. 9. 2019 - Vyřešeno načítání textur a aplikace na objektu, zatím pouze 1 textura. <br><i>Čas: <b>1 hodina</b></i></li>
   <hr>
 </ul>
 
@@ -50,4 +51,5 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
 <ul>
   <li>Nelze pouze nastavit renderer na vlastní canvas, nutno vytvořit přes three.js a připojit za jiný HTML element <b>(vyřešen)</b></li>
   <li>Nefunguje zobrazení MTL a OBJ souborů ve scéně (chybějící světla) <b>(vyřešen)</b></li>
+  <li>Nedaří se exportovat textury z 3ds Maxu, při opětovném importu se nezobrazí, vyřešeno </li>
 </ul>

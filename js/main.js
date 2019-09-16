@@ -81,17 +81,27 @@ function fitCameraToObject ( camera, object, offset, controls ) {
    }
 }
 
+//Načtení textury
+var textureLoader = new THREE.TextureLoader();
+var texture = textureLoader.load("/models/textures/textured.jpg");
+var material = new THREE.MeshPhongMaterial({map: texture});
+
 
 var mtlLoader = new THREE.MTLLoader(); //Načítání materiálů objektu
 mtlLoader.setPath("models/");
-mtlLoader.load("01Alocasia_obj.mtl", function(materials) {
+mtlLoader.load("textured.mtl", function(materials) {
     materials.preload();
 
     var objLoader = new THREE.OBJLoader(); //Načtení objektu
     objLoader.setPath("models/");
-    objLoader.load("01Alocasia_obj.obj", function(model) {
+    objLoader.load("textured.obj", function(model) {
         model.position.set(0,0,-50); //Posunutí objektu, aby nebyl v kameře
         model.name = "Objekt";
+        model.traverse(function(node){
+            if(node.isMesh){
+                node.material = material;
+            }
+        });
         scene.add(model); //Přidání objektu do scény
         console.log(model);
         fitCameraToObject(camera, model, 2, false); //Nastavení kamery na zaměření objektu
