@@ -4,12 +4,19 @@ var width = window.innerWidth / 2;
 var height = window.innerHeight / 2;
 var viewAngle = 75;
 var nearClipping = 0.1; //Blízká ořezávací rovina, cokoliv je před touto vzdáleností se nebude renderovat
-var farClipping = 9999; //Vzdálená ořezávací rovina, cokoliv je za touto rovinou se nebude renderovat
+var farClipping = 100; //Vzdálená ořezávací rovina, cokoliv je za touto rovinou se nebude renderovat
+var renderer = new THREE.WebGLRenderer(); //Vytvoření rendereru s nastavením canvasu pro renderování
 var scene = new THREE.Scene(); //Vytvoření objektu scény
 var camera = new THREE.PerspectiveCamera(viewAngle, width / height, nearClipping, farClipping); //Vytvoření a nastavení kamery
-var renderer = new THREE.WebGLRenderer(); //Vytvoření rendereru s nastavením canvasu pro renderování
+var controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.mouseButtons = {
+    LEFT: THREE.MOUSE.PAN,
+    MIDDLE: THREE.MOUSE.DOLLY,
+    RIGHT: THREE.MOUSE.ROTATE
+}
 renderer.setSize(width, height); //Nastavení velikosti rendereru
 rendererElement.appendChild(renderer.domElement);
+controls.update();
 
 /* Vytvoření kostky pro testování umístění objektu do scény */
 /*var cubeGeometry = new THREE.BoxGeometry(1, 1, 1); //Geometrie kostky
@@ -36,72 +43,103 @@ scene.add(fillLight);
 scene.add(backLight);
 
 //Zaměření kamery na objekt
-function fitCameraToObject ( camera, object, offset, controls ) {
+function fitCameraToObject(camera, object, offset, controls) {
 
     offset = offset || 1.25;
 
     const boundingBox = new THREE.Box3();
 
     // Získání ohraničujícího boxu objektu
-    boundingBox.setFromObject( object );
+    boundingBox.setFromObject(object);
 
     const center = boundingBox.getCenter();
 
     const size = boundingBox.getSize();
 
     //Získání maximální velikosti ohraničujícího boxu (aby seděl na šířku nebo výšku)
-    const maxDim = Math.max( size.x, size.y, size.z );
-    const fov = camera.fov * ( Math.PI / 180 );
-    let cameraZ = Math.abs( maxDim / 4 * Math.tan( fov * 2 ) );
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const fov = camera.fov * (Math.PI / 180);
+    let cameraZ = Math.abs(maxDim * Math.tan(fov * 2));
 
     cameraZ *= offset; //Oddálení kamery, aby objektu nebyl přesně na kraji obrazovky
 
     camera.position.z = cameraZ;
 
     const minZ = boundingBox.min.z;
-    const cameraToFarEdge = ( minZ < 0 ) ? -minZ + cameraZ : cameraZ - minZ;
+    const cameraToFarEdge = (minZ < 0) ? -minZ + cameraZ : cameraZ - minZ;
 
     camera.far = cameraToFarEdge * 3;
     camera.updateProjectionMatrix();
 
-    if ( controls ) {
+    if (controls) {
 
-      //Nastavení zaměření kamery na střed objektu
-      controls.target = center;
+        //Nastavení zaměření kamery na střed objektu
+        controls.target = center;
 
-      //Zabránění kamery, aby nešla přes vzdálenou ořezávací rovinu, tedy aby se nestalo, že objekt zmizí
-      controls.maxDistance = cameraToFarEdge * 2;
+        //Zabránění kamery, aby nešla přes vzdálenou ořezávací rovinu, tedy aby se nestalo, že objekt zmizí
+        controls.maxDistance = cameraToFarEdge * 2;
 
-      controls.saveState();
+        controls.saveState();
 
     } else {
 
-        camera.lookAt( center )
+        camera.lookAt(center)
 
-   }
+    }
 }
+
+//Načtení více textur (později dokončit)
+/*const loadManager = new THREE.LoadingManager();
+const loader = new THREE.TextureLoader(loadManager);
+
+const materials = [
+    new THREE.MeshBasicMaterial({
+        map: loader.load('/models/textures/gorshok.jpg')
+    }),
+    new THREE.MeshBasicMaterial({
+        map: loader.load('/models/textures/leaf_normal.jpg')
+    }),
+    new THREE.MeshBasicMaterial({
+        map: loader.load('/models/textures/leaf.jpg')
+    }),
+    new THREE.MeshBasicMaterial({
+        map: loader.load('/models/textures/moh.jpg')
+    }),
+    new THREE.MeshBasicMaterial({
+        map: loader.load('/models/textures/sand_normal.jpg')
+    }),
+    new THREE.MeshBasicMaterial({
+        map: loader.load('/models/textures/sand.jpg')
+    }),
+    new THREE.MeshBasicMaterial({
+        map: loader.load('/models/textures/stem.jpg')
+    }),
+];
 
 //Načtení textury
 var textureLoader = new THREE.TextureLoader();
-var texture = textureLoader.load("/models/textures/textured.jpg");
-var material = new THREE.MeshPhongMaterial({map: texture});
+var texture = textureLoader.load("/models/textures/leaf.jpg");
+var material = new THREE.MeshPhongMaterial({map: texture});*/
 
 
 var mtlLoader = new THREE.MTLLoader(); //Načítání materiálů objektu
 mtlLoader.setPath("models/");
-mtlLoader.load("textured.mtl", function(materials) {
+mtlLoader.load("01Alocasia_obj.mtl", function (materials) {
     materials.preload();
 
     var objLoader = new THREE.OBJLoader(); //Načtení objektu
     objLoader.setPath("models/");
-    objLoader.load("textured.obj", function(model) {
-        model.position.set(0,0,-50); //Posunutí objektu, aby nebyl v kameře
+    objLoader.load("01Alocasia_obj.obj", function (model) {
+        model.position.set(0, 0, -50); //Posunutí objektu, aby nebyl v kameře
         model.name = "Objekt";
-        model.traverse(function(node){
-            if(node.isMesh){
-                node.material = material;
-            }
-        });
+        /*loadManager.onLoad = () => { //Načítání textur, dodělat později
+            model.traverse(function (node) {
+                if (node.isMesh) {
+                    
+                }
+            });
+        };*/
+
         scene.add(model); //Přidání objektu do scény
         console.log(model);
         fitCameraToObject(camera, model, 2, false); //Nastavení kamery na zaměření objektu
@@ -109,6 +147,7 @@ mtlLoader.load("textured.mtl", function(materials) {
 });
 
 function animate() { //Vykreslovací funkce volaná v nekonečném cyklu
+    controls.update();
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
 }

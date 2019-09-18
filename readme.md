@@ -10,9 +10,9 @@
     	<li>Vytvoření stránky s linkem na veškeré Javascript knihovny ✓</li>
       <li>Vytvoření scény s kamerou ✓</li>
       <li>Načtení objektu ze souboru a umístění do scény ✓</li>
-      <li>Načtení textur ze souboru a namapování na objekt</li>
       <li>Ovládání kamery - přibližování, oddalování, rotace kolem objektu</li>
       <li>Ovládání světla ve scéně</li>
+      <li>Načtení textur ze souboru a namapování na objekt</li>
   </ul>
   </li>
   <li><h3>Django</h3><ul>
@@ -44,6 +44,7 @@ Začátek s knihovnou three.js, importování souborů OBJ a MTL, pochopení zá
 Vytvoření statické stránky pro vykreslování 3 D objektů, kterou poté bude nutno převést do dynamické verze s použitím načtení objektů z databáze. 
 Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-using-threejs <br><i>Čas: <b>2 hodiny</b></i></li>
 <li>16. 9. 2019 - Vyřešeno načítání textur a aplikace na objektu, zatím pouze 1 textura. <br><i>Čas: <b>1 hodina</b></i></li>
+<li>18. 9. 2019 - Práce s více texturami odložena na později, řešení ovládání ve scéně. <br><i>Čas: <b>1 hodina</b></i></li>
   <hr>
 </ul>
 
@@ -52,4 +53,5 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <li>Nelze pouze nastavit renderer na vlastní canvas, nutno vytvořit přes three.js a připojit za jiný HTML element <b>(vyřešen)</b></li>
   <li>Nefunguje zobrazení MTL a OBJ souborů ve scéně (chybějící světla) <b>(vyřešen)</b></li>
   <li>Nedaří se exportovat textury z 3ds Maxu, při opětovném importu se nezobrazí, vyřešeno </li>
+  <li>Načítání více textur a správné aplikování na objekt</li>
 </ul>
