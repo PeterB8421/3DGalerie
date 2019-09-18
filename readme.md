@@ -1,6 +1,7 @@
 # 3DGalerie
 <p>
   Cílem tohoto projektu je vytvořit webovou aplikaci pro zobrazení 3D modelů za pomoci technologie WebGL, kterou používá three.js a webového frameworku Django s databází MongoDB.   
+  Projekt je nutno spustit přes web server, kvůli načítání souborů.
 </p>
 <hr>
 <h2>Harmonogram práce:</h2>
@@ -10,9 +11,9 @@
     	<li>Vytvoření stránky s linkem na veškeré Javascript knihovny ✓</li>
       <li>Vytvoření scény s kamerou ✓</li>
       <li>Načtení objektu ze souboru a umístění do scény ✓</li>
-      <li>Ovládání kamery - přibližování, oddalování, rotace kolem objektu</li>
+      <li>Ovládání kamery - přibližování, oddalování, rotace kolem objektu, s omezením ✓</li>
       <li>Ovládání světla ve scéně</li>
-      <li>Načtení textur ze souboru a namapování na objekt</li>
+      <li>Načtení textur ze souboru a namapování na objekt (později)</li>
   </ul>
   </li>
   <li><h3>Django</h3><ul>
@@ -43,8 +44,10 @@ Začátek s knihovnou three.js, importování souborů OBJ a MTL, pochopení zá
 <li>14.9.2019 – Three.js začátek vývoje
 Vytvoření statické stránky pro vykreslování 3 D objektů, kterou poté bude nutno převést do dynamické verze s použitím načtení objektů z databáze. 
 Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-using-threejs <br><i>Čas: <b>2 hodiny</b></i></li>
+<hr>
 <li>16. 9. 2019 - Vyřešeno načítání textur a aplikace na objektu, zatím pouze 1 textura. <br><i>Čas: <b>1 hodina</b></i></li>
-<li>18. 9. 2019 - Práce s více texturami odložena na později, řešení ovládání ve scéně. <br><i>Čas: <b>1 hodina</b></i></li>
+<hr>
+<li>18. 9. 2019 - Práce s více texturami odložena na později, řešení ovládání ve scéně. Osvětlení vyřešeno, chybí slider pro dynamické nastavování osvětlení ve scéně. Textury se momentálně nebudou zobrazovat, pokračovat u jejich zobrazování budu někdy v budoucnu. https://stackoverflow.com/a/16463562<br><i>Čas: <b>2 hodiny</b></i></li>
   <hr>
 </ul>
 
@@ -54,4 +57,5 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <li>Nefunguje zobrazení MTL a OBJ souborů ve scéně (chybějící světla) <b>(vyřešen)</b></li>
   <li>Nedaří se exportovat textury z 3ds Maxu, při opětovném importu se nezobrazí, vyřešeno </li>
   <li>Načítání více textur a správné aplikování na objekt</li>
+  <li>Slider si automaticky nastavuje výšku na 0px a nechce se nechat přemluvit přes CSS. https://getbootstrap.com/docs/4.1/components/forms/#range</li>
 </ul>

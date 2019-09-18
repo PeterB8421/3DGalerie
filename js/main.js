@@ -29,17 +29,13 @@ cube.position.z = -5;
 scene.add(cube);*/
 
 //Vytvoření osvětlení
+scene.add(camera);
 var keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), 1.0);
-keyLight.position.set(-100, 0, 100);
 
-var fillLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 100%, 75%)'), 0.75);
-fillLight.position.set(100, 0, -100);
-
-var backLight = new THREE.DirectionalLight(0xffffff, 1.0);
+var backLight = new THREE.DirectionalLight(0xffffff, 0.2);
 backLight.position.set(100, 0, -100).normalize();
 
-scene.add(keyLight);
-scene.add(fillLight);
+camera.add(keyLight);
 scene.add(backLight);
 
 //Zaměření kamery na objekt
@@ -56,10 +52,10 @@ function fitCameraToObject(camera, object, offset, controls) {
 
     const size = boundingBox.getSize();
 
-    //Získání maximální velikosti ohraničujícího boxu (aby seděl na šířku nebo výšku)
+    //Získání maximální velikosti ohraničujícího boxu (aby seděl na šířku a výšku)
     const maxDim = Math.max(size.x, size.y, size.z);
     const fov = camera.fov * (Math.PI / 180);
-    let cameraZ = Math.abs(maxDim * Math.tan(fov * 2));
+    let cameraZ = Math.abs(maxDim / 4 * Math.tan(fov));
 
     cameraZ *= offset; //Oddálení kamery, aby objektu nebyl přesně na kraji obrazovky
 
@@ -68,7 +64,7 @@ function fitCameraToObject(camera, object, offset, controls) {
     const minZ = boundingBox.min.z;
     const cameraToFarEdge = (minZ < 0) ? -minZ + cameraZ : cameraZ - minZ;
 
-    camera.far = cameraToFarEdge * 3;
+    camera.far = cameraToFarEdge * 4;
     camera.updateProjectionMatrix();
 
     if (controls) {
@@ -77,7 +73,7 @@ function fitCameraToObject(camera, object, offset, controls) {
         controls.target = center;
 
         //Zabránění kamery, aby nešla přes vzdálenou ořezávací rovinu, tedy aby se nestalo, že objekt zmizí
-        controls.maxDistance = cameraToFarEdge * 2;
+        controls.maxDistance = cameraToFarEdge/2;
 
         controls.saveState();
 
@@ -142,7 +138,7 @@ mtlLoader.load("01Alocasia_obj.mtl", function (materials) {
 
         scene.add(model); //Přidání objektu do scény
         console.log(model);
-        fitCameraToObject(camera, model, 2, false); //Nastavení kamery na zaměření objektu
+        fitCameraToObject(camera, model, 2, controls); //Nastavení kamery na zaměření objektu
     });
 });
 
@@ -153,3 +149,16 @@ function animate() { //Vykreslovací funkce volaná v nekonečném cyklu
 }
 
 animate();
+
+/* JQuery area */
+
+$(function(){
+    $("#camReset").click(function(){
+        fitCameraToObject(camera, scene.getObjectByName("Objekt"), 2, controls);
+    });
+    $('#light').slider({
+        formatter: function(value) {
+            return value;
+        }
+    });
+})
