@@ -3,6 +3,7 @@ var rendererElement = document.getElementById("renderer");
 var width = window.innerWidth / 2;
 var height = window.innerHeight / 2;
 var viewAngle = 75;
+var lightIntensity = 1.0; //Intenzita světla ve scéně
 var nearClipping = 0.1; //Blízká ořezávací rovina, cokoliv je před touto vzdáleností se nebude renderovat
 var farClipping = 100; //Vzdálená ořezávací rovina, cokoliv je za touto rovinou se nebude renderovat
 var renderer = new THREE.WebGLRenderer(); //Vytvoření rendereru s nastavením canvasu pro renderování
@@ -30,11 +31,12 @@ scene.add(cube);*/
 
 //Vytvoření osvětlení
 scene.add(camera);
-var keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), 1.0);
+var keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), lightIntensity);
 
 var backLight = new THREE.DirectionalLight(0xffffff, 0.2);
 backLight.position.set(100, 0, -100).normalize();
 
+keyLight.name = "light";
 camera.add(keyLight);
 scene.add(backLight);
 
@@ -73,7 +75,7 @@ function fitCameraToObject(camera, object, offset, controls) {
         controls.target = center;
 
         //Zabránění kamery, aby nešla přes vzdálenou ořezávací rovinu, tedy aby se nestalo, že objekt zmizí
-        controls.maxDistance = cameraToFarEdge/2;
+        controls.maxDistance = cameraToFarEdge / 2;
 
         controls.saveState();
 
@@ -150,15 +152,22 @@ function animate() { //Vykreslovací funkce volaná v nekonečném cyklu
 
 animate();
 
+/* Slider pro nastavení světla ve scéně */
+var slider = document.getElementById("light");
+var output = document.getElementById("out");
+output.innerHTML = slider.value; // Zobrazení základní hodnoty
+
+// Aktualizace hodnot ze slideru
+slider.oninput = function () {
+    var light = scene.getObjectByName("light");
+    light.intensity = (this.value/10);
+    output.innerHTML = this.value;
+}
+
 /* JQuery area */
 
-$(function(){
-    $("#camReset").click(function(){
+$(function () {
+    $("#camReset").click(function () {
         fitCameraToObject(camera, scene.getObjectByName("Objekt"), 2, controls);
-    });
-    $('#light').slider({
-        formatter: function(value) {
-            return value;
-        }
     });
 })
