@@ -19,8 +19,8 @@
       <li>Instalace frameworku a potřebných součástí, spojení s MongoDB ✓</li>
       <li>Vytvoření databázového modelu, migrace db ✓</li>
       <li>Vytvoření administrátorského rozhraní ✓</li>
-      <li>Vytvoření url pro stránky</li>
-      <li>Vytvoření Views</li>
+      <li>Vytvoření Views ✓</li>
+      <li>Vytvoření url pro stránky ✓</li>
       <li>Vytvoření stránek v templatovacím systému</li>
       <li>Vytvoření formulářů a validace dat s ukládáním souborů do db</li>
       <li>Dodělání CRUD modelu</li>
@@ -50,6 +50,7 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <hr>
   <li>24. 9. 2019 - Odstranění stávajícího slideru pro ovládání intenzity osvětlení, nefunkční. Hledání alternativy. Alternativa nalezena na W3Schools (https://www.w3schools.com/howto/howto_js_rangeslider.asp). Ovládání intenzity světla funkční.<br>Vytvoření projektu Django do složky gallery, složka three obsahuje statickou stránku s vykreslováním objektů, které implementuji do Djanga později.<br>Nainstalován Django framework a propojen s MongoDB.<br>Vytvoření databázového modelu a připojení k Django systému, provedena migrace.<br>Vytvoření administrátorského rozhraní. <br> <i>Čas: <b>2 hodiny</b></i></li>
   <hr>
+  <li>25. 9. 2019 - Vytvoření Views a namapování URL stránek. Vytvoření odezvy na dotaz na stránku, později dodělám vrácení templatu. <br> <i>Čas: <b>1 hodina</b></i></li>
 </ul>
 
 <h2>Problémy: </h2>
