@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_list_or_404, get_object_or_404
 from django.http import HttpResponse
+from .models import ObjectModel
 
 def index(request):
-    return HttpResponse("Tato stránka nyní funguje")
+    objectList = get_list_or_404(ObjectModel)
+    context = {'models': objectList}
+    return render(request, 'objectGallery/index.html', context)
 
 def detail(request, model_id):
     return HttpResponse("Na této stránce bude výpis konkrétního objektu")

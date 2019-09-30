@@ -1,0 +1,15 @@
+{% extends 'objectGallery/base.html' %}
+
+{% block content %}
+{% if models %}
+    {% for model in models %}
+        <div class="col-xs-12 col-sm-4">
+            <p><a href="{% url 'detail' model.id %}">{{ model.name }}</a><p>
+        </div>
+    {% endfor %}
+{% else %}
+<div class="col-xs-12">
+    <p>Nebyly ještě nahrány žádné 3D modely</p>
+</div>
+{% endif %}
+{% endblock content %}

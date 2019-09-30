@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    path('', include('objectGallery.urls')),
     path('models/', include('objectGallery.urls')),
     path('admin/', admin.site.urls),
 ]
