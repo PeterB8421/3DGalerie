@@ -5,6 +5,8 @@ def validate_img_extension(value):
     valid_extensions = ['.jpg', '.png', '.jpeg', '.bmp']
     if not ext.lower() in valid_extensions:
         raise ValidationError(u'Nepodporovaný typ souboru.')
+    else:
+        return True
 
 def validate_obj_extension(value):
     import os
@@ -13,6 +15,8 @@ def validate_obj_extension(value):
     valid_extensions = ['.obj']
     if not ext.lower() in valid_extensions:
         raise ValidationError(u'Zde lze nahrát pouze soubory .obj')
+    else:
+        return True
 
 def validate_mtl_extension(value):
     import os
@@ -21,3 +25,5 @@ def validate_mtl_extension(value):
     valid_extensions = ['.mtl']
     if not ext.lower() in valid_extensions:
         raise ValidationError(u'Zde lze nahrát pouze soubory .mtl')
+    else:
+        return True
