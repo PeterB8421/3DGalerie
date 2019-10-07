@@ -1,0 +1,27 @@
+.info{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: lightskyblue;
+    color: black;
+}
+
+.warning{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: orangered;
+    color: black;
+}
+
+.error{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: red;
+    color: black;
+}
+
+.success{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: lightgreen;
+    color: black;
+}

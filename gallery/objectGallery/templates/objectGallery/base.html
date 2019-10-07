@@ -8,6 +8,8 @@
 
         <!-- Bootstrap CSS -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        {% load static %}
+        <link href="{% static 'objectGallery/style.css' %}" rel="stylesheet">
         {% block styles %}
         {% endblock styles %}
 
@@ -22,6 +24,13 @@
         <h1 class="jumbotron text-center">3D Galerie</h1>
         <main class="container">
         <p><i>Maturitní projekt</i></p>
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
         {% block content %}
         {% endblock content %}
         <hr>

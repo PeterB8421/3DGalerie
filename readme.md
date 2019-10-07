@@ -22,7 +22,7 @@
       <li>Vytvoření Views ✓</li>
       <li>Vytvoření url pro stránky ✓</li>
       <li>Vytvoření stránek v templatovacím systému</li>
-      <li>Vytvoření formulářů a validace dat s ukládáním souborů do db</li>
+      <li>Vytvoření formulářů a validace dat s ukládáním souborů do db ✓</li>
       <li>Dodělání CRUD modelu</li>
       <li>Implementace three.js a předávání souborů do JS</li>
     </ul>
@@ -54,13 +54,19 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <hr>
   <li>30. 9. 2019 - Úprava modelu s přidanou validací a úprava časového pásma v nastavení. Vytvoření hlavní stránky, nutno nadesignovat. <br> <i>Čas: <b>2 hodiny</b></i></li>
   <hr>
+  <li>2. 10. 2019 - Vytvoření složky pro statické soubory (https://help.pythonanywhere.com/pages/DjangoStaticFiles/). Vytvoření formuláře pro vložení dat (https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms, špatný tutoriál). Později dokončím. <br> <i>Čas: <b>2 hodiny</b></i></li>
+  <hr>
+  <li>3. 10. 2019 - Renderování formuláře na stránku a ověření, zda funguje validace. Změněn validátor pro přípony souborů v models.py, aby používal modul z pythonu. <br> <i>Čas: <b>1 hodina</b></i></li>
+  <hr>
+  <li>7. 10. 2019 - Zprovoznění uploadu souboru (https://simpleisbetterthancomplex.com/tutorial/2016/08/01/how-to-upload-files-with-django.html). Validace formuláře (https://docs.djangoproject.com/en/2.2/topics/forms/modelforms/). Přidání flash message (https://docs.djangoproject.com/en/2.2/ref/contrib/messages/). Vytvoření složky pro statické soubory (css, js...) v modulu objectGallery.<br><i>Čas: <b>3 hodiny</b></i>
 </ul>
 
 <h2>Problémy: </h2>
 <ul>
   <li>Nelze pouze nastavit renderer na vlastní canvas, nutno vytvořit přes three.js a připojit za jiný HTML element <b>(vyřešen)</b></li>
   <li>Nefunguje zobrazení MTL a OBJ souborů ve scéně (chybějící světla) <b>(vyřešen)</b></li>
-  <li>Nedaří se exportovat textury z 3ds Maxu, při opětovném importu se nezobrazí, vyřešeno </li>
+  <li>Nedaří se exportovat textury z 3ds Maxu, při opětovném importu se nezobrazí <b>(vyřešen)</b> </li>
   <li>Načítání více textur a správné aplikování na objekt</li>
-  <li>Slider si automaticky nastavuje výšku na 0px a nechce se nechat přemluvit přes CSS. https://getbootstrap.com/docs/4.1/components/forms/#range</li>
+  <li>Slider si automaticky nastavuje výšku na 0px a nechce se nechat přemluvit přes CSS. https://getbootstrap.com/docs/4.1/components/forms/#range <b>(vyřešen)</b></li>
+  <li>Při odeslání formuláře se data neodešlou a nezpracují, pole pro soubory OBJ a MTL píší "This field is required", ikdyž tam je soubor <b>(vyřešen)</b></li>
 </ul>

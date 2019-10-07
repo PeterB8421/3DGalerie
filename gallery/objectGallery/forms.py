@@ -1,17 +1,14 @@
 from django import forms
+from objectGallery.models import ObjectModel
 from datetime import datetime
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from .validators import *
 
-class ModelForm(forms.Form):
-    author = forms.CharField(required=True, label="Autor modelu")
-    name = forms.CharField(required=True, label="Název modelu")
-    description = forms.TextInput(attrs={'size': 10, 'required': False, 'title':"Popis modelu"})
-    img_gallery = forms.ImageField(required=False, label="Obrázky k modelu")
-    obj_file = forms.FileField(required=True, label="OBJ soubor modelu")
-    mtl_file = forms.FileField(required=True, label="MTL soubor modelu")
-    tags = forms.CharField(required=False, label="Tagy modelu")
+class ObjectModelForm(forms.ModelForm):
+    class Meta:
+        model = ObjectModel
+        fields = ["author", "name", "description", "image_gallery", "obj_file", "mtl_file", "tags"]
 
     def clean_author(self):
         data = self.cleaned_data['author']
