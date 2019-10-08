@@ -8,31 +8,44 @@ from .forms import ObjectModelForm
 from objectGallery.forms import ObjectModelForm
 
 
+#Stránka pro listr modelů
 def index(request):
-    objectList = get_list_or_404(ObjectModel)
-    context = {'models': objectList}
-    messages.info(request, "Hello world")
-    return render(request, 'objectGallery/index.html', context)
+    objectList = get_list_or_404(ObjectModel) #Získání listu z db
+    context = {'models': objectList} #Předání proměnné do templatu
+    #messages.info(request, "Hello world")
+    return render(request, 'objectGallery/index.html', context) #Vyrenderování stránky
 
+#Stránka pro zobrazení modelu s three.js a pro zobrazení detailů modelu
 def detail(request, model_id):
+    #Již brzy
     return HttpResponse("Na této stránce bude výpis konkrétního objektu")
 
+#Stránka pro vytvoření modelu
 def create(request):
-    if request.method == "POST":
-        form = ObjectModelForm(request.POST, request.FILES)
+    if request.method == "POST": #Jestli byl formulář odeslán, metoda bude POST
+        form = ObjectModelForm(request.POST, request.FILES) #Předání dat pro uložení
         if form.is_valid():
-            obj_file = form.cleaned_data["obj_file"]
-            mtl_file = form.cleaned_data["mtl_file"]
-            fs = FileSystemStorage()
-            fs.save(obj_file.name, obj_file)
-            fs.save(mtl_file.name, mtl_file)
-            form.save()
-            messages.success(request, "Objekt úspěšně přidán do databáze")
-            return HttpResponseRedirect(reverse("index"))
+            form.save() #Uložení formuláře
+            messages.success(request, "Objekt úspěšně přidán do databáze") #Zobrazení zprávy o úspěšném uložení
+            return HttpResponseRedirect(reverse("index")) #Přesměrování na stránku index
 
     else:
-        form = ObjectModelForm()
-    return render(request, "objectGallery/create.html", {"form": form})
+        form = ObjectModelForm() #Při prvním požadavku se inicializuje formulář
+    return render(request, "objectGallery/create.html", {"form": form}) #Vyrenderování stránky s formulářem
 
+#Stránka pro editaci modelu
 def edit(request, model_id):
-    return HttpResponse("Zde bude stránka pro editaci objektu")
+    model = get_object_or_404(ObjectModel, pk=model_id) #Získání modelu z databáze
+    form = ObjectModelForm(request.POST or None, instance=model) #Vytvoření instance formuláře
+    if form.is_valid():
+        form.save() #Uložení formuláře a updatování dat
+        messages.success(request, "Model úspěšné upraven") #Zpráva o úspěchu
+        return HttpResponseRedirect(reverse("index")) #Přesměrování na index
+    return render(request, "objectGallery/edit.html", {"form": form}) #Jinak se vyrenderuje stránka s formulářem
+
+#Metoda pro vymazání modelu z databáze podle id
+def delete(request, model_id):
+    model = get_object_or_404(ObjectModel, pk=model_id) #Získání požadovaného modelu
+    model.delete() #Vymazání modelu
+    messages.success(request, "Model vymazán z databáze") #Zpráva o úspěchu
+    return HttpResponseRedirect(reverse("index")) #Přesměrování na index

@@ -21,9 +21,9 @@
       <li>Vytvoření administrátorského rozhraní ✓</li>
       <li>Vytvoření Views ✓</li>
       <li>Vytvoření url pro stránky ✓</li>
-      <li>Vytvoření stránek v templatovacím systému</li>
+      <li>Vytvoření stránek v templatovacím systému ✓</li>
       <li>Vytvoření formulářů a validace dat s ukládáním souborů do db ✓</li>
-      <li>Dodělání CRUD modelu</li>
+      <li>Dodělání CRUD modelu ✓</li>
       <li>Implementace three.js a předávání souborů do JS</li>
     </ul>
   </li>
@@ -59,6 +59,9 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <li>3. 10. 2019 - Renderování formuláře na stránku a ověření, zda funguje validace. Změněn validátor pro přípony souborů v models.py, aby používal modul z pythonu. <br> <i>Čas: <b>1 hodina</b></i></li>
   <hr>
   <li>7. 10. 2019 - Zprovoznění uploadu souboru (https://simpleisbetterthancomplex.com/tutorial/2016/08/01/how-to-upload-files-with-django.html). Validace formuláře (https://docs.djangoproject.com/en/2.2/topics/forms/modelforms/). Přidání flash message (https://docs.djangoproject.com/en/2.2/ref/contrib/messages/). Vytvoření složky pro statické soubory (css, js...) v modulu objectGallery.<br><i>Čas: <b>3 hodiny</b></i>
+  <hr>
+  <li>8. 10. 2019 - Vytvoření editačního formuláře a mazání záznamů z databáze (https://stackoverflow.com/questions/4673985/how-to-update-an-object-from-edit-form-in-django).
+  <br><i>Čas: <b>2 hodiny</b></i>
 </ul>
 
 <h2>Problémy: </h2>

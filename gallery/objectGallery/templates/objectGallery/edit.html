@@ -1,0 +1,11 @@
+{% extends 'objectGallery/base.html' %}
+
+{% block content %}
+{% load bootstrap %}
+<a href="{% url 'index' %}" class="btn btn-primary">&lt; Zpět</a>
+<form action="{{ request.path }}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form | bootstrap }}
+    <input type="submit" value="Upravit" class="btn btn-default">
+</form>
+{% endblock content %}
