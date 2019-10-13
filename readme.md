@@ -62,6 +62,8 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <hr>
   <li>8. 10. 2019 - Vytvoření editačního formuláře a mazání záznamů z databáze (https://stackoverflow.com/questions/4673985/how-to-update-an-object-from-edit-form-in-django).
   <br><i>Čas: <b>2 hodiny</b></i>
+  <hr>
+  <li>13. 10. 2019 - Vytvoření stránky pro zovrazení detailu modelu. Nutno dořešit zobrazení obrázků.<br><i>Čas: <b>2 hodiny</b></i></li>
 </ul>
 
 <h2>Problémy: </h2>
@@ -72,4 +74,5 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <li>Načítání více textur a správné aplikování na objekt</li>
   <li>Slider si automaticky nastavuje výšku na 0px a nechce se nechat přemluvit přes CSS. https://getbootstrap.com/docs/4.1/components/forms/#range <b>(vyřešen)</b></li>
   <li>Při odeslání formuláře se data neodešlou a nezpracují, pole pro soubory OBJ a MTL píší "This field is required", ikdyž tam je soubor <b>(vyřešen)</b></li>
+  <li>URL na obrázek nahraný uživatelem vrací 404, na stránce se nenačte.</li>
 </ul>

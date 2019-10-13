@@ -1,0 +1,21 @@
+{% extends 'objectGallery/base.html' %}
+
+{% block content %}
+<a href="{% url 'index' %}" class="btn btn-primary">&lt; Zpět</a>
+<h2>{{ model.name }}</h2>
+<p>Autor: {{ model.author }}</p>
+{% if model.image_gallery %}
+<figure>
+    <!-- Nefunguje, dořešit-->
+    {% load staticfiles %}
+    <img src="{% static 'uploads/model.image_gallery' %}" class="img-responsive">
+</figure>
+{% else %}
+<p><i>Model nemá galerii k dispozici</i></p>
+{% endif %}
+<p>Tagy: {% if model.tags != None %}
+{{ model.tags }}
+{% else %}
+<i>Model nemá tagy</i>
+{% endif %}</p>
+{% endblock content %}

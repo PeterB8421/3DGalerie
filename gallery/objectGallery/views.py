@@ -17,8 +17,9 @@ def index(request):
 
 #Stránka pro zobrazení modelu s three.js a pro zobrazení detailů modelu
 def detail(request, model_id):
-    #Již brzy
-    return HttpResponse("Na této stránce bude výpis konkrétního objektu")
+    model = get_object_or_404(ObjectModel, pk=model_id)
+    context = {"model": model}
+    return render(request, "objectGallery/detail.html", context=context)
 
 #Stránka pro vytvoření modelu
 def create(request):
@@ -36,7 +37,7 @@ def create(request):
 #Stránka pro editaci modelu
 def edit(request, model_id):
     model = get_object_or_404(ObjectModel, pk=model_id) #Získání modelu z databáze
-    form = ObjectModelForm(request.POST or None, instance=model) #Vytvoření instance formuláře
+    form = ObjectModelForm(request.POST or None, request.FILES or None, instance=model) #Vytvoření instance formuláře
     if form.is_valid():
         form.save() #Uložení formuláře a updatování dat
         messages.success(request, "Model úspěšné upraven") #Zpráva o úspěchu
