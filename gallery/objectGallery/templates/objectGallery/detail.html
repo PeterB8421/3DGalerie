@@ -7,8 +7,8 @@
 {% if model.image_gallery %}
 <figure>
     <!-- Nefunguje, dořešit-->
-    {% load staticfiles %}
-    <img src="{% static 'uploads/model.image_gallery' %}" class="img-responsive">
+    {% load static %}
+    <img src="{{ model.image_gallery }}" class="img-responsive">
 </figure>
 {% else %}
 <p><i>Model nemá galerii k dispozici</i></p>
