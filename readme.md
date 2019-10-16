@@ -24,7 +24,9 @@
       <li>Vytvoření stránek v templatovacím systému ✓</li>
       <li>Vytvoření formulářů a validace dat s ukládáním souborů do db ✓</li>
       <li>Dodělání CRUD modelu ✓</li>
-      <li>Implementace three.js a předávání souborů do JS</li>
+      <li>Implementace three.js a předávání souborů do JS ✓</li>
+      <li>Multi File Upload pro galerii</li>
+      <li>Validace OBJ souborů při vytváření záznamu</li>
     </ul>
   </li>
 </ol>
@@ -64,6 +66,9 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <br><i>Čas: <b>2 hodiny</b></i>
   <hr>
   <li>13. 10. 2019 - Vytvoření stránky pro zovrazení detailu modelu. Nutno dořešit zobrazení obrázků.<br><i>Čas: <b>2 hodiny</b></i></li>
+  <hr>
+  <li>16. 10. 2019 - Zobrazení obrázků dořešeno, testování ajax requestů s Djangem (https://simpleisbetterthancomplex.com/tutorial/2016/08/29/how-to-work-with-ajax-request-with-django.html), pro předávání souborů použito URL na stránce, přes které loader je schopný načíst požadované soubory. <br><i>Čas: <b>2 hodiny</b></i></li>
+  <hr>
 </ul>
 
 <h2>Problémy: </h2>
@@ -74,5 +79,5 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <li>Načítání více textur a správné aplikování na objekt</li>
   <li>Slider si automaticky nastavuje výšku na 0px a nechce se nechat přemluvit přes CSS. https://getbootstrap.com/docs/4.1/components/forms/#range <b>(vyřešen)</b></li>
   <li>Při odeslání formuláře se data neodešlou a nezpracují, pole pro soubory OBJ a MTL píší "This field is required", ikdyž tam je soubor <b>(vyřešen)</b></li>
-  <li>URL na obrázek nahraný uživatelem vrací 404, na stránce se nenačte.</li>
+  <li>URL na obrázek nahraný uživatelem vrací 404, na stránce se nenačte. (<b>vyřešeno</b>, špatné URL)</li>
 </ul>

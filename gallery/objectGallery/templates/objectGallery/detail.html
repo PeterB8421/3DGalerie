@@ -1,13 +1,21 @@
 {% extends 'objectGallery/base.html' %}
 
 {% block content %}
+<input id="obj_file" hidden value="{{ model.obj_file }}">
+<input id="mtl_file" hidden value="{{ model.mtl_file }}">
 <a href="{% url 'index' %}" class="btn btn-primary">&lt; Zpět</a>
 <h2>{{ model.name }}</h2>
-<p>Autor: {{ model.author }}</p>
+<p>Autor: <b class="bigger"> {{ model.author }} </b></p>
+<p>Nahráno: <b class="bigger"> {{ model.creation_date|date:"j. n. Y" }}</b> v <b>{{ model.creation_date|time:"H:i" }}</b></p>
+<div id="renderer"></div>
+<label for="light">Intenzita osvětlení: <span id="out"></span></label>
+    <div class="slidecontainer">
+        <input type="range" min="1" max="10" value="10" class="slider" id="light">
+    </div>
 {% if model.image_gallery %}
 <figure>
     <!-- Nefunguje, dořešit-->
-    <img src="/uploads/{{ model.image_gallery }}" class="img-responsive">
+    <img src="/uploads/{{ model.image_gallery }}" class="imgs img-responsive">
 </figure>
 {% else %}
 <p><i>Model nemá galerii k dispozici</i></p>
@@ -17,4 +25,14 @@
 {% else %}
 <i>Model nemá tagy</i>
 {% endif %}</p>
+
 {% endblock content %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
+{% load static %}
+<script src="{% static 'objectGallery/three.min.js' %}"></script>
+<script src="{% static 'objectGallery/MTLLoader.js' %}"></script>
+<script src="{% static 'objectGallery/OBJLoader.js' %}"></script>
+<script src="{% static 'objectGallery/OrbitControls.js' %}"></script>
+<script src="{% static 'objectGallery/renderer.js' %}"></script>
+{% endblock scripts %}
