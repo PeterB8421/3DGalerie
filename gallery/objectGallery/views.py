@@ -10,7 +10,7 @@ from objectGallery.forms import ObjectModelForm
 
 #Stránka pro listr modelů
 def index(request):
-    objectList = get_list_or_404(ObjectModel) #Získání listu z db
+    objectList = ObjectModel.objects.all() #Získání listu z db
     context = {'models': objectList} #Předání proměnné do templatu
     #messages.info(request, "Hello world")
     return render(request, 'objectGallery/index.html', context) #Vyrenderování stránky
