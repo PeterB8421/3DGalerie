@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 from upload_validator import FileTypeValidator
 from .validators import *
+from django.conf import settings
 
 class ObjectModel(models.Model):
     author = models.CharField("Autor modelu", max_length=100)
@@ -13,3 +14,7 @@ class ObjectModel(models.Model):
     mtl_file = models.FileField("MTL soubor 3D modelu", upload_to="mtl/")
     creation_date = models.DateTimeField(default=datetime.now())
     tags = models.CharField("Tagy modelu pro vyhledávání", max_length=1000, null=True, blank=True, default=None)
+
+    @property
+    def img_url(self):
+       return '{}{}'.format(settings.MEDIA_URL, self.img)
