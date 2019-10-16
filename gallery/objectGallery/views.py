@@ -5,7 +5,6 @@ from django.contrib import messages
 from django.urls import reverse
 from .models import ObjectModel
 from .forms import ObjectModelForm
-from objectGallery.forms import ObjectModelForm
 
 
 #Stránka pro listr modelů
