@@ -27,6 +27,10 @@
       <li>Implementace three.js a předávání souborů do JS ✓</li>
       <li>Multi File Upload pro galerii</li>
       <li>Validace OBJ souborů při vytváření záznamu</li>
+      <li>Vytvoření uživatelů a systému s přístupem k administraci</li>
+      <li>Zlepšit tagy</li>
+      <li>Vyhledávání v modelech</li>
+      <li>Styly na stránce</li>
     </ul>
   </li>
 </ol>
