@@ -72,6 +72,7 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <li>13. 10. 2019 - Vytvoření stránky pro zovrazení detailu modelu. Nutno dořešit zobrazení obrázků.<br><i>Čas: <b>2 hodiny</b></i></li>
   <hr>
   <li>16. 10. 2019 - Zobrazení obrázků dořešeno, testování ajax requestů s Djangem (https://simpleisbetterthancomplex.com/tutorial/2016/08/29/how-to-work-with-ajax-request-with-django.html), pro předávání souborů použito URL na stránce, přes které loader je schopný načíst požadované soubory. <br><i>Čas: <b>2 hodiny</b></i></li>
+  <li>24. 10. 2019 - Uživatelský systém v Djangu (https://docs.djangoproject.com/en/2.2/topics/auth/).</li>
   <hr>
 </ul>
 

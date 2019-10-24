@@ -1,12 +1,19 @@
 {% extends 'objectGallery/base.html' %}
 
 {% block content %}
+{% if user.is_authenticated is not True %}
+    <a href="{% url 'log_in' %}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Přihlásit se</a>
+    <br>
+{% endif %}
 {% if models %}
     {% for model in models %}
         <div class="col-xs-12 col-sm-4">
-            <p><div class="row"><a href="{% url 'detail' model.id %}">{{ model.name }}</a></div><div class="row">
-            <a href="{% url 'edit' model.id %}" class="btn btn-primary btn-sm">Upravit</a>
-            <a href="{% url 'delete' model.id %}" class="btn btn-danger btn-sm">Smazat</a></div><p>
+            <p><div class="row"><a href="{% url 'detail' model.id %}">{{ model.name }}</a></div>
+            {% if user.is_authenticated %}
+                <div class="row">
+                <a href="{% url 'edit' model.id %}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                <a href="{% url 'delete' model.id %}" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></div><p>
+            {% endif %}
         </div>
     {% endfor %}
 {% else %}
@@ -14,8 +21,10 @@
     <p>Nebyly ještě nahrány žádné 3D modely</p>
 </div>
 {% endif %}
-<div class="col-xs-12">
-    <a href="{% url 'create' %}" class="btn btn-success">Vložit model</a>
-</div>
+{% if user.is_authenticated %}
+    <div class="col-xs-12">
+        <a href="{% url 'create' %}" class="btn btn-success">Vložit model</a>
+    </div>
+{% endif %}
 <br>
 {% endblock content %}
