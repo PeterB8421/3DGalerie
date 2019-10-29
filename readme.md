@@ -74,6 +74,8 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <li>16. 10. 2019 - Zobrazení obrázků dořešeno, testování ajax requestů s Djangem (https://simpleisbetterthancomplex.com/tutorial/2016/08/29/how-to-work-with-ajax-request-with-django.html), pro předávání souborů použito URL na stránce, přes které loader je schopný načíst požadované soubory. <br><i>Čas: <b>2 hodiny</b></i></li>
   <li>24. 10. 2019 - Uživatelský systém v Djangu (https://docs.djangoproject.com/en/2.2/topics/auth/).<br><i>Čas: <b>2 hodiny</b></i></li>
   <hr>
+  <li>29. 10. 2019 - Dokončení uživatelského systému. <br><i>Čas: <b>1 hodina</b></i>
+  <hr>
 </ul>
 
 <h2>Problémy: </h2>
