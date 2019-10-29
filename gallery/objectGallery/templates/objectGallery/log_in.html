@@ -1,0 +1,15 @@
+{% extends 'objectGallery/base.html' %}
+
+{% block content %}
+<main class="container">
+<h2>Přihlášení uživatele</h2>
+    <form action="/log/in" method="post">
+        {% csrf_token %}
+        <label for="username">Uživatelské jméno</label>
+        <input type="text" class="form-control" name="username" id="username" placeholder="Napište uživatelské jméno">
+        <label for="password">Heslo</label>
+        <input type="password" class="form-control" name="password" id="password" placeholder="Zadejte své heslo">
+        <input type="submit" value="Přihlásit se" class="btn btn-primary">
+    </form>
+</main>
+{% endblock content %}

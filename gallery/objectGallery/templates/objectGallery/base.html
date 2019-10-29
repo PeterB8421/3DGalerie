@@ -21,9 +21,40 @@
         <![endif]-->
     </head>
     <body>
+        
+        <nav class="navbar navbar-default" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">3D Galerie</a>
+            </div>
+        
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                    {% if user.is_authenticated %}
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ user.get_username }}</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="btn btn-default btn-sm" href="{% url 'log_out' %}">Odhlásit se</a></li>
+                        </ul>
+                    {% else %}
+                    <a href="{% url 'log_in' %}">Přihlásit se</a>
+                    {% endif %}
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+        
         <h1 class="jumbotron text-center">3D Galerie</h1>
         <main class="container">
         <p><i>Maturitní projekt</i></p>
+        
         {% if messages %}
         <div class="messages">
             {% for message in messages %}
