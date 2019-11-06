@@ -25,9 +25,9 @@
       <li>Vytvoření formulářů a validace dat s ukládáním souborů do db ✓</li>
       <li>Dodělání CRUD modelu ✓</li>
       <li>Implementace three.js a předávání souborů do JS ✓</li>
-      <li>Multi File Upload pro galerii</li>
+      <li>Multi File Upload pro galerii (testuji)</li>
       <li>Validace OBJ souborů při vytváření záznamu</li>
-      <li>Vytvoření uživatelů a systému s přístupem k administraci</li>
+      <li>Vytvoření uživatelů a systému s přístupem k administraci ✓</li>
       <li>Zlepšit tagy</li>
       <li>Vyhledávání v modelech</li>
       <li>Styly na stránce</li>
@@ -76,6 +76,8 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <hr>
   <li>29. 10. 2019 - Dokončení uživatelského systému. <br><i>Čas: <b>1 hodina</b></i>
   <hr>
+  <li>6. 11. 2019 - Testování Multiple file uploadu na separátním projektu, oprava requirements.txt.<br><i>Čas: <b>2 hodiny</b></i></li>
+  <hr>
 </ul>
 
 <h2>Problémy: </h2>
@@ -87,4 +89,5 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <li>Slider si automaticky nastavuje výšku na 0px a nechce se nechat přemluvit přes CSS. https://getbootstrap.com/docs/4.1/components/forms/#range <b>(vyřešen)</b></li>
   <li>Při odeslání formuláře se data neodešlou a nezpracují, pole pro soubory OBJ a MTL píší "This field is required", ikdyž tam je soubor <b>(vyřešen)</b></li>
   <li>URL na obrázek nahraný uživatelem vrací 404, na stránce se nenačte. (<b>vyřešeno</b>, špatné URL)</li>
+  <li>Multiple file upload problémy</li>
 </ul>

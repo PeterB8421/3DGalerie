@@ -3,10 +3,6 @@ from datetime import datetime
 from upload_validator import FileTypeValidator
 from django.conf import settings
 
-class Files(models.Model):
-    model_id = models.ForeignKey(ObjectModel)
-    f = models.FileField("Soubor k modelu",default=None ,blank=True,null=True,upload_to="{id}/")
-
 class ObjectModel(models.Model):
     author = models.CharField("Autor modelu", max_length=100)
     name = models.CharField("Název 3D modelu", max_length=500)
@@ -16,3 +12,8 @@ class ObjectModel(models.Model):
     mtl_file = models.FileField("MTL soubor 3D modelu", upload_to="mtl/")
     creation_date = models.DateTimeField(default=datetime.now())
     tags = models.CharField("Tagy modelu pro vyhledávání", max_length=1000, null=True, blank=True, default=None)
+
+
+class Files(models.Model):
+    model_id = models.ForeignKey(ObjectModel, on_delete=models.CASCADE, blank=True, default=None)
+    f = models.FileField("Soubor k modelu",default=None ,blank=True,null=True,upload_to="{id}/")

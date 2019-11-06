@@ -8,7 +8,7 @@ from .validators import *
 class ObjectModelForm(forms.ModelForm):
     class Meta:
         model = ObjectModel
-        fields = ["author", "name", "description", "obj_file", "mtl_file", "tags", "image_gallery"]
+        fields = ["author", "name", "description", "obj_file", "mtl_file", "tags"]
 
     def clean_author(self):
         data = self.cleaned_data['author']
