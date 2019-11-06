@@ -1,5 +1,5 @@
 from django import forms
-from objectGallery.models import ObjectModel
+from objectGallery.models import ObjectModel, Files
 from datetime import datetime
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
@@ -8,7 +8,7 @@ from .validators import *
 class ObjectModelForm(forms.ModelForm):
     class Meta:
         model = ObjectModel
-        fields = ["author", "name", "description", "image_gallery", "obj_file", "mtl_file", "tags"]
+        fields = ["author", "name", "description", "obj_file", "mtl_file", "tags", "image_gallery"]
 
     def clean_author(self):
         data = self.cleaned_data['author']
@@ -26,5 +26,8 @@ class ObjectModelForm(forms.ModelForm):
         else:
             return data
 
-
+class FilesModelForm(forms.ModelForm):
+    class Meta:
+        model = Files
+        fields = ["f"]
     

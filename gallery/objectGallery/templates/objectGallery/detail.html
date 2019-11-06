@@ -14,7 +14,11 @@
     </div>
 {% if model.image_gallery %}
 <figure>
-    <img src="/uploads/{{ model.image_gallery }}" class="imgs img-responsive">
+    {% for photo in model.image_gallery.related %}
+        <img src="/{id}/{{ photo.f }}" class="imgs img-responsive">
+    {% endfor %}
+
+    <!--<img src="/uploads/{{ model.image_gallery }}" class="imgs img-responsive">-->
 </figure>
 {% else %}
 <p><i>Model nemá galerii k dispozici</i></p>

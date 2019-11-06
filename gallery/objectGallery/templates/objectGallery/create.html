@@ -6,6 +6,7 @@
 <form action="/create/" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form | bootstrap }}
+    {{ file_form | bootstrap }}
     <input type="submit" value="Vytvořit" class="btn btn-success">
 </form>
 {% endblock content %}

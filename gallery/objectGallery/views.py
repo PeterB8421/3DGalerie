@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import ObjectModel
-from .forms import ObjectModelForm
+from .forms import ObjectModelForm, FilesModelForm
 
 
 #Stránka pro listr modelů
@@ -27,14 +27,17 @@ def detail(request, model_id):
 def create(request):
     if request.method == "POST": #Jestli byl formulář odeslán, metoda bude POST
         form = ObjectModelForm(request.POST, request.FILES) #Předání dat pro uložení
-        if form.is_valid():
+        file_form = FilesModelForm(request.POST, request.FILES)        
+        if form.is_valid() and file_form.is_valid():
             form.save() #Uložení formuláře
+            file_form.save()
             messages.success(request, "Objekt úspěšně přidán do databáze") #Zobrazení zprávy o úspěšném uložení
             return HttpResponseRedirect(reverse("index")) #Přesměrování na stránku index
 
     else:
         form = ObjectModelForm() #Při prvním požadavku se inicializuje formulář
-    return render(request, "objectGallery/create.html", {"form": form}) #Vyrenderování stránky s formulářem
+        file_form = FilesModelForm()
+    return render(request, "objectGallery/create.html", {"form": form, "file_form": file_form}) #Vyrenderování stránky s formulářem
 
 #Stránka pro editaci modelu
 @login_required(login_url="/log/in")
