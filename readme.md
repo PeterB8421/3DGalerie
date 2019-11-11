@@ -78,6 +78,8 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <hr>
   <li>6. 11. 2019 - Testování Multiple file uploadu na separátním projektu, oprava requirements.txt.<br><i>Čas: <b>2 hodiny</b></i></li>
   <hr>
+  <li>11. 11. 2019 - Multiple File Upload testování <br><i>Čas: <b>2 hodiny</b></i></li>
+  <hr>
 </ul>
 
 <h2>Problémy: </h2>
