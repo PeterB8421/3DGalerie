@@ -12,16 +12,23 @@
     <div class="slidecontainer">
         <input type="range" min="1" max="10" value="10" class="slider" id="light">
     </div>
-{% if model.image_gallery %}
-<figure>
-    {% for photo in model.image_gallery.related %}
-        <img src="/{id}/{{ photo.f }}" class="imgs img-responsive">
+<hr>
+{% if imgs %}
+<div class="row">
+    {% for photo in imgs %}
+    <div class="col-xs-12 col-sm-6">
+        <img src="/uploads/{{ photo.f }}" class="imgs-medium">
+    </div>
     {% endfor %}
 
     <!--<img src="/uploads/{{ model.image_gallery }}" class="imgs img-responsive">-->
-</figure>
+</div>
+<a href="{% url 'editGallery' model.id %}" class="btn btn-primary btn-sm">Upravit galerii</a>
 {% else %}
-<p><i>Model nemá galerii k dispozici</i></p>
+<p><i>Model nemá galerii k dispozici</i>{% if user.is_authenticated %}
+    <a href="{% url 'addGallery' model.id %}" class="btn btn-success btn-sm">Přidat galerii</a>
+{% endif %}</p>
+<hr>
 {% endif %}
 <p>Tagy: {% if model.tags != None %}
 {{ model.tags }}

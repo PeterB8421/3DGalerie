@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 from upload_validator import FileTypeValidator
 from django.conf import settings
+import os
 
 class ObjectModel(models.Model):
     author = models.CharField("Autor modelu", max_length=100)
@@ -16,4 +17,9 @@ class ObjectModel(models.Model):
 
 class Files(models.Model):
     model_id = models.ForeignKey(ObjectModel, on_delete=models.CASCADE, blank=True, default=None)
-    f = models.FileField("Soubor k modelu",default=None ,blank=True,null=True,upload_to="{id}/")
+    f = models.FileField("Soubor k modelu",default=None ,blank=True,null=True,upload_to="images/", 
+    validators=[FileTypeValidator(allowed_types=["image/jpeg", "image/png", "image/bmp"], allowed_extensions=[".jpg", ".jpeg", ".png", ".bmp"])])
+
+    def delete(self, *args, **kwargs):
+        os.remove(os.path.join(settings.MEDIA_ROOT, self.f.name))
+        super(Files, self).delete(*args, **kwargs)

@@ -80,6 +80,8 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <hr>
   <li>11. 11. 2019 - Multiple File Upload testování <br><i>Čas: <b>2 hodiny</b></i></li>
   <hr>
+  <li>14. 11. 2019 - Galerie obrázků k modelům, CRUD model, mazání souborů, zprovoznění cizího klíče, implementace Multiple File Uploadu. <br><i>Čas: <b>2 hodiny</b></i></li>
+  <hr>
 </ul>
 
 <h2>Problémy: </h2>
@@ -91,5 +93,8 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <li>Slider si automaticky nastavuje výšku na 0px a nechce se nechat přemluvit přes CSS. https://getbootstrap.com/docs/4.1/components/forms/#range <b>(vyřešen)</b></li>
   <li>Při odeslání formuláře se data neodešlou a nezpracují, pole pro soubory OBJ a MTL píší "This field is required", ikdyž tam je soubor <b>(vyřešen)</b></li>
   <li>URL na obrázek nahraný uživatelem vrací 404, na stránce se nenačte. (<b>vyřešeno</b>, špatné URL)</li>
-  <li>Multiple file upload problémy</li>
+  <li>Multiple file upload problémy
+    <li>Cizí klíče v Djangu https://stackoverflow.com/questions/30017334/django-foreign-key-must-be-an-instance(<b>Vyřešeno</b>)
+    </li>
+  </li>
 </ul>

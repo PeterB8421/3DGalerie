@@ -30,4 +30,7 @@ class FilesModelForm(forms.ModelForm):
     class Meta:
         model = Files
         fields = ["f"]
+        widgets = {
+            "f": forms.ClearableFileInput(attrs={"mutliple": True})
+        }
     

@@ -3,9 +3,16 @@
 {% block content %}
 {% load bootstrap %}
 <a href="{% url 'index' %}" class="btn btn-primary">&lt; Zpět</a>
-<form action="/create/" method="post" enctype="multipart/form-data">
+<form action="/models/{{ model_id }}/addGallery/" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form | bootstrap }}
     <input type="submit" value="Vytvořit" class="btn btn-success">
 </form>
 {% endblock content %}
+{% block scripts %}
+<script>
+$(document).ready(function(){
+    $('#id_f').attr("multiple","true");
+  })
+</script>
+{% endblock scripts %}

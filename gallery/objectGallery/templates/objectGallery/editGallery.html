@@ -1,0 +1,24 @@
+{% extends 'objectGallery/base.html' %}
+
+{% block content %}
+{% load bootstrap %}
+<a href="{% url 'index' %}" class="btn btn-primary">&lt; Zpět</a>
+<form action="/models/{{ model_id }}/editGallery/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form | bootstrap }}
+    <input type="submit" value="Vytvořit" class="btn btn-success">
+</form>
+{% for img in imgs %}
+    <div class="col-xs-12 col-sm-3">
+        <img src="/uploads/{{ img.f }}" class="imgs">
+        <a href="/models/img/{{ img.id }}/delete/" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+    </div>
+{% endfor %}
+{% endblock content %}
+{% block scripts %}
+<script>
+$(document).ready(function(){
+    $('#id_f').attr("multiple","true");
+  })
+</script>
+{% endblock scripts %}

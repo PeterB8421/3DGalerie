@@ -5,52 +5,86 @@ from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import ObjectModel
+from .models import ObjectModel, Files
 from .forms import ObjectModelForm, FilesModelForm
 
 
-#Stránka pro listr modelů
+# Stránka pro listr modelů
 def index(request):
-    objectList = ObjectModel.objects.all() #Získání listu z db
-    context = {'models': objectList} #Předání proměnné do templatu
-    #messages.info(request, "Hello world")
-    return render(request, 'objectGallery/index.html', context) #Vyrenderování stránky
+    objectList = ObjectModel.objects.all() # Získání listu z db
+    context = {'models': objectList} # Předání proměnné do templatu
+    # messages.info(request, "Hello world")
+    return render(request, 'objectGallery/index.html', context) # Vyrenderování stránky
 
-#Stránka pro zobrazení modelu s three.js a pro zobrazení detailů modelu
+# Stránka pro zobrazení modelu s three.js a pro zobrazení detailů modelu
 def detail(request, model_id):
     model = get_object_or_404(ObjectModel, pk=model_id)
-    context = {"model": model}
+    images = Files.objects.filter(model_id=model_id)
+    context = {"model": model, "imgs": images}
     return render(request, "objectGallery/detail.html", context=context)
 
-#Stránka pro vytvoření modelu
+# Stránka pro vytvoření modelu
 @login_required(login_url="/log/in")
 def create(request):
-    if request.method == "POST": #Jestli byl formulář odeslán, metoda bude POST
-        form = ObjectModelForm(request.POST, request.FILES) #Předání dat pro uložení
-        file_form = FilesModelForm(request.POST, request.FILES)        
-        if form.is_valid() and file_form.is_valid():
-            form.save() #Uložení formuláře
-            file_form.save()
-            messages.success(request, "Objekt úspěšně přidán do databáze") #Zobrazení zprávy o úspěšném uložení
-            return HttpResponseRedirect(reverse("index")) #Přesměrování na stránku index
+    if request.method == "POST": # Jestli byl formulář odeslán, metoda bude POST
+        form = ObjectModelForm(request.POST, request.FILES) # Předání dat pro uložení   
+        if form.is_valid():
+            form.save() # Uložení formuláře
+            messages.success(request, "Objekt úspěšně přidán do databáze") # Zobrazení zprávy o úspěšném uložení
+            return HttpResponseRedirect(reverse("index")) # Přesměrování na stránku index
 
     else:
-        form = ObjectModelForm() #Při prvním požadavku se inicializuje formulář
-        file_form = FilesModelForm()
-    return render(request, "objectGallery/create.html", {"form": form, "file_form": file_form}) #Vyrenderování stránky s formulářem
+        form = ObjectModelForm() # Při prvním požadavku se inicializuje formulář
+    return render(request, "objectGallery/create.html", {"form": form}) # Vyrenderování stránky s formulářem
 
-#Stránka pro editaci modelu
+# Stránka pro přidání galerie obrázků k modelu
+@login_required(login_url="/log/in")
+def addGallery(request, model_id):
+    if request.method == "POST":
+        form = FilesModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save(commit=False)
+            if request.FILES:
+                id_model = ObjectModel.objects.only("id").get(id=model_id)
+                for f in request.FILES.getlist("f"):
+                    Files.objects.create(model_id=id_model, f=f)
+                return HttpResponseRedirect(reverse("index"))
+    else:
+        form = FilesModelForm()
+        context = {"form": form, "model_id": model_id}
+        return render(request, "objectGallery/addGallery.html", context=context)
+
+# Stránka pro editaci modelu
 @login_required(login_url="/log/in")
 def edit(request, model_id):
-    model = get_object_or_404(ObjectModel, pk=model_id) #Získání modelu z databáze
-    form = ObjectModelForm(request.POST or None, request.FILES or None, instance=model) #Vytvoření instance formuláře
+    model = get_object_or_404(ObjectModel, pk=model_id) # Získání modelu z databáze
+    form = ObjectModelForm(request.POST or None, request.FILES or None, instance=model) # Vytvoření instance formuláře
     if form.is_valid():
-        form.save() #Uložení formuláře a updatování dat
-        messages.success(request, "Model úspěšné upraven") #Zpráva o úspěchu
-        return HttpResponseRedirect(reverse("index")) #Přesměrování na index
-    return render(request, "objectGallery/edit.html", {"form": form}) #Jinak se vyrenderuje stránka s formulářem
+        form.save() # Uložení formuláře a updatování dat
+        messages.success(request, "Model úspěšné upraven") # Zpráva o úspěchu
+        return HttpResponseRedirect(reverse("index")) # Přesměrování na index
+    return render(request, "objectGallery/edit.html", {"form": form}) # Jinak se vyrenderuje stránka s formulářem
 
-#Metoda pro vymazání modelu z databáze podle id
+# Stránka pro editaci galerie modelu
+@login_required(login_url="/log/in")
+def editGallery(request, model_id):
+    if request.method == "POST":
+        form = FilesModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save(commit=False)
+            if request.FILES:
+                id_model = ObjectModel.objects.only("id").get(id=model_id)
+                for f in request.FILES.getlist("f"):
+                    Files.objects.create(model_id=id_model, f=f)
+                return HttpResponseRedirect(reverse("index"))
+    else:
+        form = FilesModelForm()
+        gallery = get_list_or_404(Files, model_id=model_id)
+        context = {"form": form, "imgs": gallery, "model_id": model_id}
+        return render(request, "objectGallery/editGallery.html", context=context)
+    
+
+# Metoda pro vymazání modelu z databáze podle id
 @login_required(login_url="/log/in")
 def delete(request, model_id):
     if not request.user.is_authenticated:
@@ -58,13 +92,27 @@ def delete(request, model_id):
         return HttpResponseRedirect(reverse("index"))
     else:
         model = ObjectModel.objects.get(pk=model_id)
-        if model is not None: #Jestli model existuje, tak se smaže, jinak se vypíše chybová hláška
-            model.delete() #Vymazání modelu
-            messages.success(request, "Model vymazán z databáze") #Zpráva o úspěchu
-            return HttpResponseRedirect(reverse("index")) #Přesměrování na index
+        if model is not None: # Jestli model existuje, tak se smaže, jinak se vypíše chybová hláška
+            model.delete() # Vymazání modelu
+            # Přidat vymazání souborů modelu
+            messages.success(request, "Model vymazán z databáze") # Zpráva o úspěchu
+            return HttpResponseRedirect(reverse("index")) # Přesměrování na index
         else:
             messages.warning(request, "Model nebyl nalezen")
             return HttpResponseRedirect(reverse("index"))
+
+# Metoda pro vymazání obrázku z galerie pomocí ID
+@login_required(login_url="/log/in")
+def deleteFromGallery(request, img_id):
+    img = Files.objects.get(pk=img_id)
+    if img is not None:
+        img.delete()
+        messages.success(request, "Obrázek smazán!")
+        return HttpResponseRedirect(reverse("index"))
+    else:
+        messages.error(request, "Obrázek nebyl nalezen!")
+        return HttpResponseRedirect(reverse("index"))
+
 
 def user_login(request):
     username = request.POST.get('username', False)
