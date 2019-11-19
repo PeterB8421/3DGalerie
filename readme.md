@@ -25,7 +25,7 @@
       <li>Vytvoření formulářů a validace dat s ukládáním souborů do db ✓</li>
       <li>Dodělání CRUD modelu ✓</li>
       <li>Implementace three.js a předávání souborů do JS ✓</li>
-      <li>Multi File Upload pro galerii (testuji)</li>
+      <li>Multi File Upload pro galerii ✓</li>
       <li>Validace OBJ souborů při vytváření záznamu</li>
       <li>Vytvoření uživatelů a systému s přístupem k administraci ✓</li>
       <li>Zlepšit tagy</li>
