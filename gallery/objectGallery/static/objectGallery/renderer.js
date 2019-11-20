@@ -79,27 +79,42 @@ function fitCameraToObject(camera, object, offset, controls) {
     }
 }
 
-var mtlLoader = new THREE.MTLLoader(); //Načítání materiálů objektu
-mtlLoader.load("/uploads/" + document.getElementById("mtl_file").value, function (materials) {
-    materials.preload();
+console.log("MTL File val: "+document.getElementById("mtl_file").value);
+console.log("MTL File type: "+ typeof(document.getElementById("mtl_file").value));
+if (document.getElementById("mtl_file").value != "") { 
+    var mtlLoader = new THREE.MTLLoader(); //Načítání materiálů objektu
+    mtlLoader.load("/uploads/" + document.getElementById("mtl_file").value, function (materials) {
+        materials.preload();
 
+        var objLoader = new THREE.OBJLoader(); //Načtení objektu
+        objLoader.setMaterials(materials); //Nastavení materiálů
+        objLoader.load("/uploads/" + document.getElementById("obj_file").value, function (model) {
+            model.position.set(0, 0, -50); //Posunutí objektu, aby nebyl v kameře
+            model.name = "Objekt";
+
+            scene.add(model); //Přidání objektu do scény
+            console.log(model);
+            fitCameraToObject(camera, model, 2, controls); //Nastavení kamery na zaměření objektu
+        });
+    });
+} else {
+    var mat = new THREE.Color(0x00FF00);
     var objLoader = new THREE.OBJLoader(); //Načtení objektu
     objLoader.load("/uploads/" + document.getElementById("obj_file").value, function (model) {
         model.position.set(0, 0, -50); //Posunutí objektu, aby nebyl v kameře
         model.name = "Objekt";
-        /*loadManager.onLoad = () => { //Načítání textur, dodělat později
-            model.traverse(function (node) {
-                if (node.isMesh) {
-                    
-                }
-            });
-        };*/
+        model.traverse(function(child){
+            if(child instanceof THREE.Mesh)
+                child.material.color.setRGB(0, 255, 0);
+        })
 
         scene.add(model); //Přidání objektu do scény
         console.log(model);
         fitCameraToObject(camera, model, 2, controls); //Nastavení kamery na zaměření objektu
     });
-});
+}
+
+
 
 function animate() { //Vykreslovací funkce volaná v nekonečném cyklu
     controls.update();
@@ -117,7 +132,7 @@ output.innerHTML = slider.value; // Zobrazení základní hodnoty
 // Aktualizace hodnot ze slideru
 slider.oninput = function () {
     var light = scene.getObjectByName("light");
-    light.intensity = (this.value/10);
+    light.intensity = (this.value / 10);
     output.innerHTML = this.value;
 }
 

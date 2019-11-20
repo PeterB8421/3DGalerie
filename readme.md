@@ -12,7 +12,7 @@
       <li>Načtení objektu ze souboru a umístění do scény ✓</li>
       <li>Ovládání kamery - přibližování, oddalování, rotace kolem objektu, s omezením ✓</li>
       <li>Ovládání světla ve scéně ✓</li>
-      <li>Načtení textur ze souboru a namapování na objekt (později)</li>
+      <li>Načtení textur ze souboru a namapování na objekt (řešenoé přes MTL soubor) ✓</li>
   </ul>
   </li>
   <li><h3>Django</h3><ul>
@@ -31,6 +31,7 @@
       <li>Zlepšit tagy</li>
       <li>Vyhledávání v modelech</li>
       <li>Styly na stránce</li>
+      <li>AJAX na stránky</li>
     </ul>
   </li>
 </ol>
@@ -82,6 +83,7 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <hr>
   <li>14. 11. 2019 - Galerie obrázků k modelům, CRUD model, mazání souborů, zprovoznění cizího klíče, implementace Multiple File Uploadu. <br><i>Čas: <b>2 hodiny</b></i></li>
   <hr>
+  <li>20. 11. 2019 - Zprovoznění textur v three.js, úprava modelu v Djangu, již nevyžaduje MTL soubor, není-li k dispozici MTL soubor, renderer nastaví modelu barvu jako materiál.
 </ul>
 
 <h2>Problémy: </h2>
