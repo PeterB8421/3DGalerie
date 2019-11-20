@@ -12,7 +12,7 @@
       <li>Načtení objektu ze souboru a umístění do scény ✓</li>
       <li>Ovládání kamery - přibližování, oddalování, rotace kolem objektu, s omezením ✓</li>
       <li>Ovládání světla ve scéně ✓</li>
-      <li>Načtení textur ze souboru a namapování na objekt (řešenoé přes MTL soubor) ✓</li>
+      <li>Načtení textur ze souboru a namapování na objekt (řešené přes MTL soubor) ✓</li>
   </ul>
   </li>
   <li><h3>Django</h3><ul>
