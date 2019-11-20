@@ -98,14 +98,14 @@ if (document.getElementById("mtl_file").value != "") {
         });
     });
 } else {
-    var mat = new THREE.Color(0x00FF00);
+    var mat = new THREE.MeshLambertMaterial({color: 0xFF0000});
     var objLoader = new THREE.OBJLoader(); //Načtení objektu
     objLoader.load("/uploads/" + document.getElementById("obj_file").value, function (model) {
         model.position.set(0, 0, -50); //Posunutí objektu, aby nebyl v kameře
         model.name = "Objekt";
         model.traverse(function(child){
             if(child instanceof THREE.Mesh)
-                child.material.color.setRGB(0, 255, 0);
+                child.material = mat;
         })
 
         scene.add(model); //Přidání objektu do scény
