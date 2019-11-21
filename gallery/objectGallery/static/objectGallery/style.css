@@ -80,6 +80,13 @@
     cursor: pointer;
 }
 
+.del{
+    background-color: #777;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
 footer {
     height: 100px;
     bottom: 0;

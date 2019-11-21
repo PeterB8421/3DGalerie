@@ -15,7 +15,9 @@ class ObjectModel(models.Model):
 
     def delete(self, *args, **kwargs):
         os.remove(os.path.join(settings.MEDIA_ROOT, self.obj_file.name))
-        os.remove(os.path.join(settings.MEDIA_ROOT, self.mtl_file.name))
+        if self.mtl_file != "":
+            os.remove(os.path.join(settings.MEDIA_ROOT, self.mtl_file.name))
+        super(ObjectModel, self).delete(*args, **kwargs)
 
 
 class Files(models.Model):

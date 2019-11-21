@@ -1,14 +1,15 @@
 {% extends 'objectGallery/base.html' %}
 
 {% block content %}
+<div id="ajaxMsg"></div>
 {% if models %}
     {% for model in models %}
-        <div class="col-xs-12 col-sm-4">
+        <div class="col-xs-12 col-sm-4" id="model{{model.id}}">
             <p><div class="row"><a href="{% url 'detail' model.id %}">{{ model.name }}</a></div>
             {% if user.is_authenticated %}
                 <div class="row">
                 <a href="{% url 'edit' model.id %}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                <a href="{% url 'delete' model.id %}" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                <a href="{% url 'delete' model.id %}" class="btn btn-danger btn-sm ajax"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
             {% endif %}
             </div><p>
         </div>
