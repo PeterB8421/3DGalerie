@@ -101,6 +101,19 @@ def delete(request, model_id):
             messages.warning(request, "Model nebyl nalezen")
             return HttpResponseRedirect(reverse("index"))
 
+# Metoda pro ajax na mazání modelu
+@login_required(login_url="/log/in")
+def ajaxDelete(request, model_id):
+    model = ObjectModel.objects.get(pk=model_id)
+    if model is not None: # Jestli model existuje, tak se smaže, jinak se vypíše chybová hláška
+        model.delete() # Vymazání modelu
+        # Přidat vymazání souborů modelu
+        response = {"status": True, "id": model_id, "type": "Model"}
+        return JsonResponse(response)
+    else:
+        response = {"status": False, "id": model_id, "type": "Model"}
+        return JsonResponse(response)
+
 # Metoda pro vymazání obrázku z galerie pomocí ID
 @login_required(login_url="/log/in")
 def deleteFromGallery(request, img_id):
@@ -112,6 +125,18 @@ def deleteFromGallery(request, img_id):
     else:
         messages.error(request, "Obrázek nebyl nalezen!")
         return HttpResponseRedirect(reverse("index"))
+
+# Metoda pro vymazání obrázku z galerie pomocí ajax
+@login_required(login_url="/log/in")
+def ajaxDeleteFromGallery(request, img_id):
+    img = Files.objects.get(pk=img_id)
+    if img is not None:
+        img.delete()
+        response = {"status": True, "id": img_id, "type": "Obrázek"}
+        return JsonResponse(response)
+    else:
+        response = {"status": False, "id": img_id, "type": "Obrázek"}
+        return JsonResponse(response)
 
 
 def user_login(request):
