@@ -24,7 +24,7 @@ controls.update();
 
 //Vytvoření osvětlení
 scene.add(camera);
-var keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), lightIntensity);
+var keyLight = new THREE.PointLight(0xaaaaaa, 1);
 
 var backLight = new THREE.DirectionalLight(0xffffff, 0.2);
 backLight.position.set(100, 0, -100).normalize();
