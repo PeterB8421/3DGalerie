@@ -87,6 +87,10 @@
     padding: 10px;
 }
 
+.thumb{
+    width: 50%;
+}
+
 footer {
     height: 100px;
     bottom: 0;

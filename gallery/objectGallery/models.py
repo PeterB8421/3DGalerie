@@ -12,11 +12,14 @@ class ObjectModel(models.Model):
     mtl_file = models.FileField("MTL soubor 3D modelu", upload_to="mtl/", null=True, blank=True, default=None)
     creation_date = models.DateTimeField(default=datetime.now())
     tags = models.CharField("Tagy modelu pro vyhledávání", max_length=1000, null=True, blank=True, default=None)
+    thumb = models.ImageField("Náhledový obrázek", upload_to="thumbs/", null=True, blank=True, default=None)
 
     def delete(self, *args, **kwargs):
         os.remove(os.path.join(settings.MEDIA_ROOT, self.obj_file.name))
         if self.mtl_file != "":
             os.remove(os.path.join(settings.MEDIA_ROOT, self.mtl_file.name))
+        if self.thumb != "":
+            os.remove(os.path.join(settings.MEDIA_ROOT, self.thumb))
         super(ObjectModel, self).delete(*args, **kwargs)
 
 
