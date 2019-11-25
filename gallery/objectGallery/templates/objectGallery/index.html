@@ -4,7 +4,7 @@
 <div id="ajaxMsg"></div>
 {% if models %}
     {% for model in models %}
-        <div class="col-xs-12 col-sm-4" id="model{{model.id}}">
+        <div class="col-xs-12 col-sm-4 mod" id="model{{model.id}}">
             <p><a href="{% url 'detail' model.id %}">
             {% if model.thumb %}
                 <img src="/uploads/{{ model.thumb }}" class="thumb" alt="thumbnail">

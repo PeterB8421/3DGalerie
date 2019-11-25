@@ -91,6 +91,10 @@
     width: 50%;
 }
 
+.mod{
+    text-align: center;
+}
+
 footer {
     height: 100px;
     bottom: 0;
