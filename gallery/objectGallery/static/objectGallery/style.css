@@ -10,6 +10,18 @@
     margin: 0 !important;
 }
 
+.outline-success:hover{
+    background-color: white;
+    color: #5cb85c;
+    border: solid #4cae4c 2px;
+}
+
+.outline-danger:hover{
+    background-color: white;
+    color: #d9534f;
+    border: solid #d43f3a 2px;
+}
+
 .info {
     padding: 10px;
     border-radius: 10px;
@@ -93,6 +105,10 @@
 
 .mod{
     text-align: center;
+}
+
+.mod:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 footer {

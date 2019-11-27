@@ -1,0 +1,7 @@
+{% extends 'objectGallery/base.html' %}
+
+{% block content %}
+<h3>Smazat <b class="bigger">VŠECHNY</b> modely v databázi?</h3>
+<a href="{% url 'index' %}" class="btn btn-danger btn-lg btn-block outline-danger">NE</a>
+<a href="{% url 'delalldo' %}" class="btn btn-success btn-lg btn-block outline-success">ANO</a>
+{% endblock content %}

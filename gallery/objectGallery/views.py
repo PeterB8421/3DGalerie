@@ -138,6 +138,18 @@ def ajaxDeleteFromGallery(request, img_id):
         response = {"status": False, "id": img_id, "type": "Obrázek"}
         return JsonResponse(response)
 
+@login_required(login_url="/log/in")
+def delall(request):
+    return render(request, "objectGallery/delall.html")
+
+@login_required(login_url="/log/in")
+def deleteAll(request):
+    models = ObjectModel.objects.all()
+    for model in models:
+        model.delete()
+    messages.success(request, "VŠECHNY MODELY SMAZÁNY!")
+    return HttpResponseRedirect(reverse("index"))
+
 
 def user_login(request):
     username = request.POST.get('username', False)

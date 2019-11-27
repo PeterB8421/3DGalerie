@@ -14,5 +14,7 @@ urlpatterns = [
     path('img/<int:img_id>/delete/ajax/', views.ajaxDeleteFromGallery, name="ajaxDeleteFromGallery"),
     path('img/<int:img_id>/delete/', views.deleteFromGallery, name="deleteFromGallery"),
     path('log/in', views.user_login, name="log_in"),
-    path('log/out', views.user_logout, name="log_out")
+    path('log/out', views.user_logout, name="log_out"),
+    path('delall/do', views.deleteAll, name="delalldo"),
+    path('delall', views.delall, name="delall"),
 ]
