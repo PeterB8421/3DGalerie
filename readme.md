@@ -83,9 +83,13 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <hr>
   <li>14. 11. 2019 - Galerie obrázků k modelům, CRUD model, mazání souborů, zprovoznění cizího klíče, implementace Multiple File Uploadu. <br><i>Čas: <b>2 hodiny</b></i></li>
   <hr>
-  <li>20. 11. 2019 - Zprovoznění textur v three.js, úprava modelu v Djangu, již nevyžaduje MTL soubor, není-li k dispozici MTL soubor, renderer nastaví modelu barvu jako materiál. <br><i>Čas: <b>2 hodiny</b></i>
+  <li>20. 11. 2019 - Zprovoznění textur v three.js, úprava modelu v Djangu, již nevyžaduje MTL soubor, není-li k dispozici MTL soubor, renderer nastaví modelu barvu jako materiál. <br><i>Čas: <b>2 hodiny</b></i></li>
   <hr>
   <li>21. 11. 2019 - Přidání ajax requestů pro mazání modelů a obrázků. Oprava mazání MTL souboru z modelu.<br><i>Čas: <b>2 hodiny</b></i></li>
+  <hr>
+  <li>4. 12. 2019 - Předělání formuláře pro vstup na ajax. <br><i>Čas: <b>1 hodina</b></i></li>
+  <hr>
+  <li>4. 12. 2019 - Validace formuláře v JS. <br><i>Čas: <b>1 hodina</b></i></li>
 </ul>
 
 <h2>Problémy: </h2>

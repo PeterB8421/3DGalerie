@@ -2,7 +2,8 @@
 
 {% block content %}
 <a href="{% url 'index' %}" class="btn btn-primary">&lt; Zpět</a>
-<form action="/create/" method="post" enctype="multipart/form-data">
+<form action="/create/" method="post" enctype="multipart/form-data" id="inputForm">
+    <div id="formMsgs"></div>
     {% csrf_token %}
     {{ form.non_field_errors }}
 
@@ -35,6 +36,7 @@
                 {{ form.obj_file }}
             </div>
         </div>
+        <a href="#" class="btn btn-success" id="continue">Pokračovat</a>
     </div>
     <div id="nonRequiredFields">
     <h3>Nevyžadovaná pole</h3>
