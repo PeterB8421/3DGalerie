@@ -89,7 +89,9 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <hr>
   <li>4. 12. 2019 - Předělání formuláře pro vstup na ajax. <br><i>Čas: <b>1 hodina</b></i></li>
   <hr>
-  <li>4. 12. 2019 - Validace formuláře v JS. <br><i>Čas: <b>1 hodina</b></i></li>
+  <li>7. 12. 2019 - Validace formuláře v JS. <br><i>Čas: <b>1 hodina</b></i></li>
+  <hr>
+  <li>9. 12. 2019 - Zprovoznění části formuláře ve form-ajax branchi. <br><i>Čas: <b>1 hodina</b></i></li>
 </ul>
 
 <h2>Problémy: </h2>

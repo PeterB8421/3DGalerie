@@ -36,7 +36,6 @@
                 {{ form.obj_file }}
             </div>
         </div>
-        <input type="submit" value="Pokračovat" class="btn btn-success">
     </div>
     <div id="nonRequiredFields">
     <h3>Nevyžadovaná pole</h3>
@@ -84,6 +83,8 @@
 {% load static %}
 <script src="{% static 'objectGallery/bootstrapify.js' %}"></script>
 <script>
-$("#nonRequiredFields").hide();
+$(function()){
+    $("input[required]").attr("readonly", "true");
+}
 </script>
 {% endblock scripts %}

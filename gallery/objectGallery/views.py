@@ -29,13 +29,25 @@ def create(request):
     if request.method == "POST": # Jestli byl formulář odeslán, metoda bude POST
         form = ObjectModelForm(request.POST, request.FILES) # Předání dat pro uložení   
         if form.is_valid():
-            form.save() # Uložení formuláře
+            saved_form = form.save() # Uložení formuláře
             messages.success(request, "Objekt úspěšně přidán do databáze") # Zobrazení zprávy o úspěšném uložení
-            return HttpResponseRedirect(reverse("index")) # Přesměrování na stránku index
+            return HttpResponseRedirect(reverse("createNonReq", kwargs={"model_id": saved_form.pk})) # Přesměrování na stránku index
 
     else:
         form = ObjectModelForm() # Při prvním požadavku se inicializuje formulář
     return render(request, "objectGallery/create.html", {"form": form}) # Vyrenderování stránky s formulářem
+
+@login_required(login_url="/log/in")
+def createNonReq(request, model_id):
+    model = get_object_or_404(ObjectModel, pk=model_id) # Získání modelu z databáze
+    form = ObjectModelForm(request.POST or None, request.FILES or None, instance=model) # Vytvoření instance formuláře
+    if request.POST:
+        if form.is_valid():
+            form.save() # Uložení formuláře a updatování dat
+            messages.success(request, "Model úspěšné upraven") # Zpráva o úspěchu
+            return HttpResponseRedirect(reverse("index")) # Přesměrování na index
+    else:
+        return render(request, "objectGallery/create2.html", {"form": form})
 
 # Stránka pro přidání galerie obrázků k modelu
 @login_required(login_url="/log/in")
