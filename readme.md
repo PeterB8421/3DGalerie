@@ -92,6 +92,8 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <li>7. 12. 2019 - Validace formuláře v JS. <br><i>Čas: <b>1 hodina</b></i></li>
   <hr>
   <li>9. 12. 2019 - Zprovoznění části formuláře ve form-ajax branchi. <br><i>Čas: <b>1 hodina</b></i></li>
+  <hr>
+  <li>10. 12. 2019 - Úprava postupu při vytváření modelu, možnost přidat galerii modelu v editačním formuláři. <br><i>Čas: <b>2 hodiny</b></i></li>
 </ul>
 
 <h2>Problémy: </h2>
