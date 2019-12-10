@@ -31,23 +31,11 @@ def create(request):
         if form.is_valid():
             saved_form = form.save() # Uložení formuláře
             messages.success(request, "Objekt úspěšně přidán do databáze") # Zobrazení zprávy o úspěšném uložení
-            return HttpResponseRedirect(reverse("createNonReq", kwargs={"model_id": saved_form.pk})) # Přesměrování na stránku index
+            return HttpResponseRedirect(reverse("edit", kwargs={"model_id": saved_form.pk})) # Přesměrování na stránku index
 
     else:
         form = ObjectModelForm() # Při prvním požadavku se inicializuje formulář
     return render(request, "objectGallery/create.html", {"form": form}) # Vyrenderování stránky s formulářem
-
-@login_required(login_url="/log/in")
-def createNonReq(request, model_id):
-    model = get_object_or_404(ObjectModel, pk=model_id) # Získání modelu z databáze
-    form = ObjectModelForm(request.POST or None, request.FILES or None, instance=model) # Vytvoření instance formuláře
-    if request.POST:
-        if form.is_valid():
-            form.save() # Uložení formuláře a updatování dat
-            messages.success(request, "Model úspěšné upraven") # Zpráva o úspěchu
-            return HttpResponseRedirect(reverse("index")) # Přesměrování na index
-    else:
-        return render(request, "objectGallery/create2.html", {"form": form})
 
 # Stránka pro přidání galerie obrázků k modelu
 @login_required(login_url="/log/in")
@@ -71,11 +59,23 @@ def addGallery(request, model_id):
 def edit(request, model_id):
     model = get_object_or_404(ObjectModel, pk=model_id) # Získání modelu z databáze
     form = ObjectModelForm(request.POST or None, request.FILES or None, instance=model) # Vytvoření instance formuláře
-    if form.is_valid():
+    imgs = Files.objects.filter(model_id=model_id)
+    galleryForm = FilesModelForm(request.POST or None, request.FILES or None)
+    context = {
+        "form": form,
+        "imgs": imgs,
+        "galleryForm": galleryForm
+    }
+    if form.is_valid() and galleryForm.is_valid():
         form.save() # Uložení formuláře a updatování dat
+        galleryForm.save(commit=False)
+        if request.FILES:
+            id_model = ObjectModel.objects.only("id").get(id=model_id)
+            for f in request.FILES.getlist("f"):
+                Files.objects.create(model_id=id_model, f=f)
         messages.success(request, "Model úspěšné upraven") # Zpráva o úspěchu
         return HttpResponseRedirect(reverse("index")) # Přesměrování na index
-    return render(request, "objectGallery/edit.html", {"form": form}) # Jinak se vyrenderuje stránka s formulářem
+    return render(request, "objectGallery/edit.html", context) # Jinak se vyrenderuje stránka s formulářem
 
 # Stránka pro editaci galerie modelu
 @login_required(login_url="/log/in")

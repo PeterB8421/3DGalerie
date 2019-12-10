@@ -15,11 +15,20 @@ class ObjectModel(models.Model):
     thumb = models.ImageField("Náhledový obrázek", upload_to="thumbs/", null=True, blank=True, default=None)
 
     def delete(self, *args, **kwargs):
-        os.remove(os.path.join(settings.MEDIA_ROOT, self.obj_file.name))
+        try:
+            os.remove(os.path.join(settings.MEDIA_ROOT, self.obj_file.name))
+        except FileNotFoundError:
+            print("File does not exist already")
         if self.mtl_file != "":
-            os.remove(os.path.join(settings.MEDIA_ROOT, self.mtl_file.name))
-        if self.thumb != "":
-            os.remove(os.path.join(settings.MEDIA_ROOT, self.thumb))
+            try:
+                os.remove(os.path.join(settings.MEDIA_ROOT, self.mtl_file.name))
+            except FileNotFoundError:
+                print("File does not exist already")
+        if self.thumb != "" and self.thumb != None:
+            try:
+                os.remove(os.path.join(settings.MEDIA_ROOT, self.thumb))
+            except FileNotFoundError:
+                print("File does not exist already")
         super(ObjectModel, self).delete(*args, **kwargs)
 
 
