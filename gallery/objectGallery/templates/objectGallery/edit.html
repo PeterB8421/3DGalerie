@@ -2,7 +2,6 @@
 
 {% block content %}
 {% load bootstrap %}
-<a href="{% url 'index' %}" class="btn btn-primary">&lt; Zpět</a>
 <form action="{{ request.path }}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <h2>Model</h2>
@@ -18,10 +17,13 @@
         {% endfor %}
     </div>
     <h2>Tagy modelu</h2>
-    <input type="submit" value="Upravit" class="btn btn-default">
+    {{ tagsForm | bootstrap }}
+    <input type="submit" value="Potvrdit" class="btn btn-success">
 </form>
 {% endblock content %}
 {% block scripts %}
+{% load static %}
+<script src="{% static 'objectGallery/tagsAjax.js' %}"></script>
 <script>
 $(document).ready(function(){
     $('#id_f').attr("multiple","true");

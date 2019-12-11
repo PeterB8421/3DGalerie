@@ -5,8 +5,8 @@ from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import ObjectModel, Files
-from .forms import ObjectModelForm, FilesModelForm
+from .models import ObjectModel, Files, Tags
+from .forms import ObjectModelForm, FilesModelForm, TagsModelForm
 
 
 # Stránka pro listr modelů
@@ -61,10 +61,12 @@ def edit(request, model_id):
     form = ObjectModelForm(request.POST or None, request.FILES or None, instance=model) # Vytvoření instance formuláře
     imgs = Files.objects.filter(model_id=model_id)
     galleryForm = FilesModelForm(request.POST or None, request.FILES or None)
+    tagsForm = TagsModelForm
     context = {
         "form": form,
         "imgs": imgs,
-        "galleryForm": galleryForm
+        "galleryForm": galleryForm,
+        "tagsForm": tagsForm
     }
     if form.is_valid() and galleryForm.is_valid():
         form.save() # Uložení formuláře a updatování dat
@@ -76,6 +78,19 @@ def edit(request, model_id):
         messages.success(request, "Model úspěšné upraven") # Zpráva o úspěchu
         return HttpResponseRedirect(reverse("index")) # Přesměrování na index
     return render(request, "objectGallery/edit.html", context) # Jinak se vyrenderuje stránka s formulářem
+
+@login_required(login_url="/log/in")
+def ajaxAddTag(request, tag_id, model_id, tag):
+    if tag_id is None:
+        id_model = ObjectModel.objects.only("id").get(id=model_id)
+        Tags.objects.create(model_ids=id_model, tag=tag)
+        model_tags = Tags.objects.filter(model_ids=model_id)
+    else:
+        tag = Tags.objects.only("id").get(id=tag_id)
+        model = ObjectModel.objects.only("id").get(id=model_id)
+        tag.model_ids.add(model)
+    response = {"model_tags": model_tags}
+    return JsonResponse(response, safe=False)
 
 # Stránka pro editaci galerie modelu
 @login_required(login_url="/log/in")
