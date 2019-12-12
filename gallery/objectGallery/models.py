@@ -41,5 +41,5 @@ class Files(models.Model):
         super(Files, self).delete(*args, **kwargs)
 
 class Tags(models.Model):
-    tag = models.CharField(max_length=50)
+    tag = models.CharField(max_length=50, null=True, default=None, blank=True)
     model_ids = models.ManyToManyField(ObjectModel)

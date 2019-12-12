@@ -116,3 +116,33 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+.tag {
+    font-family: Helvetica, Arial, sans-serif;
+    background: #000099;
+    display: inline-block;
+    color: #fff;
+    position: relative;
+    padding: 10px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    margin: 0 30px 0 0;
+    text-decoration: none;
+}
+ 
+.tag:after {
+    display: inline-block;
+    border: 19px solid;
+    border-color: transparent transparent transparent #000099;
+    height: 0;
+    width: 0;
+    position: absolute;
+    right: -38px;
+    top: 0;
+    content: "";
+    display: inline-block;
+}
+
+.tag-remove{
+    cursor: pointer;
+}

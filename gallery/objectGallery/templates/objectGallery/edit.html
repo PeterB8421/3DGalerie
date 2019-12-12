@@ -2,6 +2,7 @@
 
 {% block content %}
 {% load bootstrap %}
+<input id="model_id" hidden type="number" readonly value="{{ model.id }}">
 <form action="{{ request.path }}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <h2>Model</h2>
@@ -17,7 +18,16 @@
         {% endfor %}
     </div>
     <h2>Tagy modelu</h2>
+    <div id="ajaxMsgs"></div>
     {{ tagsForm | bootstrap }}
+    <div id="modelTags">
+        {% if tags %}
+            {% for tag in tags %}
+                <span class="tag" data-id="{{ tag.id }}"><span class="glyphicon glyphicon-remove tag-remove"></span> {{ tag.tag }}</span>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <br>
     <input type="submit" value="Potvrdit" class="btn btn-success">
 </form>
 {% endblock content %}

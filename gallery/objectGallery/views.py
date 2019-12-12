@@ -62,11 +62,14 @@ def edit(request, model_id):
     imgs = Files.objects.filter(model_id=model_id)
     galleryForm = FilesModelForm(request.POST or None, request.FILES or None)
     tagsForm = TagsModelForm
+    tags = list(Tags.objects.filter(model_ids=model_id).values())
     context = {
         "form": form,
         "imgs": imgs,
         "galleryForm": galleryForm,
-        "tagsForm": tagsForm
+        "tagsForm": tagsForm,
+        "model": model,
+        "tags": tags
     }
     if form.is_valid() and galleryForm.is_valid():
         form.save() # Uložení formuláře a updatování dat
@@ -80,15 +83,11 @@ def edit(request, model_id):
     return render(request, "objectGallery/edit.html", context) # Jinak se vyrenderuje stránka s formulářem
 
 @login_required(login_url="/log/in")
-def ajaxAddTag(request, tag_id, model_id, tag):
-    if tag_id is None:
-        id_model = ObjectModel.objects.only("id").get(id=model_id)
-        Tags.objects.create(model_ids=id_model, tag=tag)
-        model_tags = Tags.objects.filter(model_ids=model_id)
-    else:
-        tag = Tags.objects.only("id").get(id=tag_id)
-        model = ObjectModel.objects.only("id").get(id=model_id)
-        tag.model_ids.add(model)
+def ajaxAddTag(request, model_id, tag):
+    id_model = ObjectModel.objects.only("id").get(id=model_id)
+    tag = Tags.objects.create(tag=tag)
+    tag.model_ids.add(id_model)
+    model_tags = list(Tags.objects.filter(model_ids=model_id).values())
     response = {"model_tags": model_tags}
     return JsonResponse(response, safe=False)
 
@@ -164,6 +163,15 @@ def ajaxDeleteFromGallery(request, img_id):
     else:
         response = {"status": False, "id": img_id, "type": "Obrázek"}
         return JsonResponse(response)
+
+@login_required(login_url="/log/in")
+def ajaxDeleteTag(request, model_id, tag_id):
+    tag = get_object_or_404(Tags, pk=tag_id)
+    model = get_object_or_404(ObjectModel, pk=model_id)
+    tag.model_ids.remove(model)
+    model_tags = list(Tags.objects.filter(model_ids=model_id).values())
+    response = {"model_tags": model_tags}
+    return JsonResponse(response, safe=False)
 
 @login_required(login_url="/log/in")
 def delall(request):

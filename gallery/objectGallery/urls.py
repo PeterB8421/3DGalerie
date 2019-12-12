@@ -5,7 +5,8 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('create/', views.create, name='create'),
-    path('tagCreate/<int:tag_id>/<int:model_id>/<str:tag>/', views.ajaxAddTag, name="ajaxAddTag"),
+    path('tagCreate/<int:model_id>/<str:tag>/', views.ajaxAddTag, name="ajaxAddTag"),
+    path('tagDelete/<int:model_id>/<int:tag_id>/', views.ajaxDeleteTag, name="ajaxDeleteTag"),
     path('<int:model_id>/detail/', views.detail, name='detail'),
     path('<int:model_id>/edit/', views.edit, name='edit'),
     path('<int:model_id>/delete/', views.delete, name='delete'),
