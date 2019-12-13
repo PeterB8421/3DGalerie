@@ -20,7 +20,8 @@ def index(request):
 def detail(request, model_id):
     model = get_object_or_404(ObjectModel, pk=model_id)
     images = Files.objects.filter(model_id=model_id)
-    context = {"model": model, "imgs": images}
+    tags = Tags.objects.filter(model_ids=model_id)
+    context = {"model": model, "imgs": images, "tags": tags}
     return render(request, "objectGallery/detail.html", context=context)
 
 # Stránka pro vytvoření modelu

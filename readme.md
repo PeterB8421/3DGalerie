@@ -94,6 +94,10 @@ Požívané zdroje: https://www.creativebloq.com/how-to/get-started-with-webgl-u
   <li>9. 12. 2019 - Zprovoznění části formuláře ve form-ajax branchi. <br><i>Čas: <b>1 hodina</b></i></li>
   <hr>
   <li>10. 12. 2019 - Úprava postupu při vytváření modelu, možnost přidat galerii modelu v editačním formuláři. <br><i>Čas: <b>2 hodiny</b></i></li>
+  <hr>
+  <li>11. 12. 2019 - Přidání ajax vytváření tagů v editačním formuláři.<br><i>Čas: <b>2 hodiny</b></i></li>
+  <hr>
+  <li>13. 12. 2019 - Přidání tagů a jejich ajax mazání pro přihlášené uživatele v detailu objektu. <br><i>Čas: <b>1 hodina</b></i>
 </ul>
 
 <h2>Problémy: </h2>
