@@ -2,10 +2,41 @@
 
 {% block content %}
 {% load bootstrap %}
-<a href="{% url 'index' %}" class="btn btn-primary">&lt; Zpět</a>
+<input id="model_id" hidden type="number" readonly value="{{ model.id }}">
 <form action="{{ request.path }}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    <h2>Model</h2>
     {{ form | bootstrap }}
-    <input type="submit" value="Upravit" class="btn btn-default">
+    <h2>Galerie modelu</h2>
+    {{ galleryForm | bootstrap }}
+    <div class="row">
+        {% for img in imgs %}
+            <div class="thumb" id="model{{img.id}}">
+                <img src="/uploads/{{ img.f }}" class="imgs">
+                <a href="/models/img/{{ img.id }}/delete/" class="btn btn-danger btn-sm ajax"><span class="glyphicon glyphicon-trash"></span></a>
+            </div>
+        {% endfor %}
+    </div>
+    <h2>Tagy modelu</h2>
+    <div id="ajaxMsgs"></div>
+    {{ tagsForm | bootstrap }}
+    <div id="modelTags">
+        {% if tags %}
+            {% for tag in tags %}
+                <span class="tag" data-id="{{ tag.id }}"><span class="glyphicon glyphicon-remove tag-remove"></span> {{ tag.tag }}</span>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <br>
+    <input type="submit" value="Potvrdit" class="btn btn-success">
 </form>
 {% endblock content %}
+{% block scripts %}
+{% load static %}
+<script src="{% static 'objectGallery/tagsAjax.js' %}"></script>
+<script>
+$(document).ready(function(){
+    $('#id_f').attr("multiple","true");
+  })
+</script>
+{% endblock scripts %}

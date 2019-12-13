@@ -11,15 +11,23 @@ class ObjectModel(models.Model):
     obj_file = models.FileField("OBJ soubor 3D modelu", upload_to="obj/")
     mtl_file = models.FileField("MTL soubor 3D modelu", upload_to="mtl/", null=True, blank=True, default=None)
     creation_date = models.DateTimeField(default=datetime.now())
-    tags = models.CharField("Tagy modelu pro vyhledávání", max_length=1000, null=True, blank=True, default=None)
     thumb = models.ImageField("Náhledový obrázek", upload_to="thumbs/", null=True, blank=True, default=None)
 
     def delete(self, *args, **kwargs):
-        os.remove(os.path.join(settings.MEDIA_ROOT, self.obj_file.name))
+        try:
+            os.remove(os.path.join(settings.MEDIA_ROOT, self.obj_file.name))
+        except FileNotFoundError:
+            print("File does not exist already")
         if self.mtl_file != "":
-            os.remove(os.path.join(settings.MEDIA_ROOT, self.mtl_file.name))
-        if self.thumb != "":
-            os.remove(os.path.join(settings.MEDIA_ROOT, self.thumb))
+            try:
+                os.remove(os.path.join(settings.MEDIA_ROOT, self.mtl_file.name))
+            except FileNotFoundError:
+                print("File does not exist already")
+        if self.thumb != "" and self.thumb != None:
+            try:
+                os.remove(os.path.join(settings.MEDIA_ROOT, self.thumb))
+            except FileNotFoundError:
+                print("File does not exist already")
         super(ObjectModel, self).delete(*args, **kwargs)
 
 
@@ -31,3 +39,7 @@ class Files(models.Model):
     def delete(self, *args, **kwargs):
         os.remove(os.path.join(settings.MEDIA_ROOT, self.f.name))
         super(Files, self).delete(*args, **kwargs)
+
+class Tags(models.Model):
+    tag = models.CharField(max_length=50, null=True, default=None, blank=True)
+    model_ids = models.ManyToManyField(ObjectModel)

@@ -3,6 +3,7 @@
 {% block content %}
 <input id="obj_file" hidden value="{{ model.obj_file }}">
 <input id="mtl_file" hidden value="{{ model.mtl_file }}">
+<input id="model_id" hidden value="{{ model.id }}">
 <a href="{% url 'index' %}" class="btn btn-primary">&lt; Zpět</a>
 <h2>{{ model.name }}</h2>
 <p>Autor: <b class="bigger"> {{ model.author }} </b></p>
@@ -32,10 +33,16 @@
 {% endif %}</p>
 <hr>
 {% endif %}
-<p>Tagy: {% if model.tags != None %}
-{{ model.tags }}
-{% else %}
-<i>Model nemá tagy</i>
+{% if tags != None %}
+    {% if user.is_authenticated %}
+        <div id="ajaxMsgs"></div>
+    {% endif %}
+    {% for tag in tags %}
+        <span class="tag" data-id="{{ tag.id }}">
+        {% if user.is_authenticated %}
+        <span class="glyphicon glyphicon-remove tag-remove"></span>
+        {% endif %} {{ tag.tag }}</span>
+    {% endfor %}
 {% endif %}</p>
 
 {% if user.is_authenticated %}
@@ -55,4 +62,5 @@
 <script src="{% static 'objectGallery/OBJLoader.js' %}"></script>
 <script src="{% static 'objectGallery/OrbitControls.js' %}"></script>
 <script src="{% static 'objectGallery/renderer.js' %}"></script>
+<script src="{% static 'objectGallery/tagsAjax.js' %}"></script>
 {% endblock scripts %}

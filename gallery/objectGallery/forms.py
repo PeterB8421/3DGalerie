@@ -1,5 +1,5 @@
 from django import forms
-from objectGallery.models import ObjectModel, Files
+from objectGallery.models import ObjectModel, Files, Tags
 from datetime import datetime
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
@@ -8,7 +8,7 @@ from .validators import *
 class ObjectModelForm(forms.ModelForm):
     class Meta:
         model = ObjectModel
-        fields = ["author", "name", "description", "obj_file", "mtl_file", "thumb", "tags"]
+        fields = ["author", "name", "description", "obj_file", "mtl_file", "thumb"]
 
     def clean_author(self):
         data = self.cleaned_data['author']
@@ -34,3 +34,7 @@ class FilesModelForm(forms.ModelForm):
             "f": forms.ClearableFileInput(attrs={"mutliple": True})
         }
     
+class TagsModelForm(forms.ModelForm):
+    class Meta:
+        model = Tags
+        fields = ["tag"]

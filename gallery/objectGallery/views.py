@@ -5,8 +5,8 @@ from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import ObjectModel, Files
-from .forms import ObjectModelForm, FilesModelForm
+from .models import ObjectModel, Files, Tags
+from .forms import ObjectModelForm, FilesModelForm, TagsModelForm
 
 
 # Stránka pro listr modelů
@@ -20,7 +20,8 @@ def index(request):
 def detail(request, model_id):
     model = get_object_or_404(ObjectModel, pk=model_id)
     images = Files.objects.filter(model_id=model_id)
-    context = {"model": model, "imgs": images}
+    tags = Tags.objects.filter(model_ids=model_id)
+    context = {"model": model, "imgs": images, "tags": tags}
     return render(request, "objectGallery/detail.html", context=context)
 
 # Stránka pro vytvoření modelu
@@ -29,9 +30,9 @@ def create(request):
     if request.method == "POST": # Jestli byl formulář odeslán, metoda bude POST
         form = ObjectModelForm(request.POST, request.FILES) # Předání dat pro uložení   
         if form.is_valid():
-            form.save() # Uložení formuláře
+            saved_form = form.save() # Uložení formuláře
             messages.success(request, "Objekt úspěšně přidán do databáze") # Zobrazení zprávy o úspěšném uložení
-            return HttpResponseRedirect(reverse("index")) # Přesměrování na stránku index
+            return HttpResponseRedirect(reverse("edit", kwargs={"model_id": saved_form.pk})) # Přesměrování na stránku index
 
     else:
         form = ObjectModelForm() # Při prvním požadavku se inicializuje formulář
@@ -59,11 +60,37 @@ def addGallery(request, model_id):
 def edit(request, model_id):
     model = get_object_or_404(ObjectModel, pk=model_id) # Získání modelu z databáze
     form = ObjectModelForm(request.POST or None, request.FILES or None, instance=model) # Vytvoření instance formuláře
-    if form.is_valid():
+    imgs = Files.objects.filter(model_id=model_id)
+    galleryForm = FilesModelForm(request.POST or None, request.FILES or None)
+    tagsForm = TagsModelForm
+    tags = list(Tags.objects.filter(model_ids=model_id).values())
+    context = {
+        "form": form,
+        "imgs": imgs,
+        "galleryForm": galleryForm,
+        "tagsForm": tagsForm,
+        "model": model,
+        "tags": tags
+    }
+    if form.is_valid() and galleryForm.is_valid():
         form.save() # Uložení formuláře a updatování dat
+        galleryForm.save(commit=False)
+        if request.FILES:
+            id_model = ObjectModel.objects.only("id").get(id=model_id)
+            for f in request.FILES.getlist("f"):
+                Files.objects.create(model_id=id_model, f=f)
         messages.success(request, "Model úspěšné upraven") # Zpráva o úspěchu
         return HttpResponseRedirect(reverse("index")) # Přesměrování na index
-    return render(request, "objectGallery/edit.html", {"form": form}) # Jinak se vyrenderuje stránka s formulářem
+    return render(request, "objectGallery/edit.html", context) # Jinak se vyrenderuje stránka s formulářem
+
+@login_required(login_url="/log/in")
+def ajaxAddTag(request, model_id, tag):
+    id_model = ObjectModel.objects.only("id").get(id=model_id)
+    tag = Tags.objects.create(tag=tag)
+    tag.model_ids.add(id_model)
+    model_tags = list(Tags.objects.filter(model_ids=model_id).values())
+    response = {"model_tags": model_tags}
+    return JsonResponse(response, safe=False)
 
 # Stránka pro editaci galerie modelu
 @login_required(login_url="/log/in")
@@ -137,6 +164,15 @@ def ajaxDeleteFromGallery(request, img_id):
     else:
         response = {"status": False, "id": img_id, "type": "Obrázek"}
         return JsonResponse(response)
+
+@login_required(login_url="/log/in")
+def ajaxDeleteTag(request, model_id, tag_id):
+    tag = get_object_or_404(Tags, pk=tag_id)
+    model = get_object_or_404(ObjectModel, pk=model_id)
+    tag.model_ids.remove(model)
+    model_tags = list(Tags.objects.filter(model_ids=model_id).values())
+    response = {"model_tags": model_tags}
+    return JsonResponse(response, safe=False)
 
 @login_required(login_url="/log/in")
 def delall(request):
