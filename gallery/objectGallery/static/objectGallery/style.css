@@ -2,6 +2,11 @@
     border: solid 1px lightgray;
 }
 
+#description{
+    font-family: 'Merriweather', serif;
+    font-size: 16pt;
+}
+
 .jumbotron{
     margin: 0 !important;
 }

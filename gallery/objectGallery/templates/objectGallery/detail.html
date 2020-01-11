@@ -1,5 +1,9 @@
 {% extends 'objectGallery/base.html' %}
 
+{% block styles %}
+<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+{% endblock styles %}
+
 {% block content %}
 <input id="obj_file" hidden value="{{ model.obj_file }}">
 <input id="mtl_file" hidden value="{{ model.mtl_file }}">
@@ -16,6 +20,12 @@
     <br>
 <a href="#" class="btn btn-default" id="camReset">Resetovat kameru</a>
 <hr>
+{% if model.description %}
+<div class="col-xs-12" id="description">
+    {{ model.description }}
+<hr>
+</div>
+{% endif %}
 {% if imgs %}
 <div class="row">
     {% for photo in imgs %}
