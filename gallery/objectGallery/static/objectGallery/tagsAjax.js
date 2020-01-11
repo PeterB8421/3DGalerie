@@ -10,8 +10,8 @@ $(function(){
                     console.log(response);
                     debugger;
                     var tags;
+                    tags = $("#modelTags").html();
                     for(var i = 0; i < response.model_tags.length; i++){                        
-                        tags = $("#modelTags").html();
                         $("#modelTags").html(tags + "<span class=\"glyphicon glyphicon-remove tag-remove\"></span><span class=\"tag\" data-id=\""+response.model_tags[i].id+"\">"+response.model_tags[i].tag+"</span>");
                     }
                     $("#id_tag").val("");
@@ -32,8 +32,6 @@ $(function(){
         $.ajax({
             url: "/tagDelete/"+model_id+"/"+tag_id+"/",
             success: function(response, status){
-                $("#ajaxMsgs").show();
-                $("#ajaxMsgs").html("<p class=\"warning\">Tag smazán!</p>");
                 setTimeout(function(){
                     $("#ajaxMsgs").hide(100);
                 }, 5000);
