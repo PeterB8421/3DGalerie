@@ -2,7 +2,7 @@ astroid==2.2.5
 autopep8==1.4.4
 colorama==0.4.1
 dataclasses==0.6
-Django==2.2.26
+Django==2.2.27
 django-bootstrap-form==3.4
 django-clear-cache==0.3
 django-upload-validator==1.1.2
